@@ -1,0 +1,68 @@
+format: jb-book
+root: intro
+
+# Note: Windows is a Case-insensitive filesystem while Linux EC2 is Case-sensitive filesystem.
+# Therefore, be mindful of file and directory names. Make sure they match exactly, otherwise
+# it might work on Windows but break on Linux.
+
+chapters:
+  ## =============== Countries =========================
+  - file: notebooks/Countries
+    sections:
+      - glob: notebooks/Countries/*
+
+  ## =============== Countries =========================
+  - file: notebooks/Markets
+    # Cross Sectional stuff (missing)
+    sections:
+      - file: notebooks/Markets/Market Commentary
+      - file: notebooks/Markets/Correlations
+      # Equities
+      - file: notebooks/Markets/Equities
+        sections:
+          - file: notebooks/Markets/Equities/equities_ERP
+          - file: notebooks/Markets/Equities/equities_EPS
+          - file: notebooks/Markets/Equities/deep_dives
+            sections:
+              - glob: notebooks/Markets/Equities/Deep Dives/*
+      # Bonds
+      - file: notebooks/Markets/Bonds
+        sections:
+          - file: notebooks/Markets/Bonds/flows
+          - file: notebooks/Markets/Bonds/yields_today
+          - file: notebooks/Markets/Bonds/whats_priced_irs
+          # - file: notebooks/Markets/Bonds/yields_through_time
+          - file: notebooks/Markets/Bonds/yields_versus
+          - file: notebooks/Markets/Bonds/hedged_yields
+          - file: notebooks/Markets/Bonds/deep_dives
+            sections:
+              - glob: notebooks/Markets/Bonds/Deep Dives/*
+      # FX
+      - file: notebooks/Markets/Currencies
+      # Other
+      - file: notebooks/Markets/Dollar Liquidity
+
+  ## =============== Signals =========================
+  - file: notebooks/Signals
+    sections:
+      - file: notebooks/Signals/CTA Signals
+      - file: notebooks/Signals/NDX vs RTY
+
+  ## =============== Oversight =========================
+  - file: notebooks/Oversight
+    sections:
+      - file: notebooks/Oversight/Risk Dashboard
+      - file: notebooks/Oversight/Performance
+      - file: notebooks/Oversight/Attribution
+      - file: notebooks/Oversight/Trade Management
+
+  ## =============== Other =========================
+  - file: notebooks/Other
+    sections:
+      - file: notebooks/Other/Data Visualizer
+      - file: notebooks/Other/Curve Trades
+      - file: notebooks/Other/Tutorials/Using Tulips
+      - file: notebooks/Other/Tutorials/Plotting
+      - file: notebooks/Other/Tutorials/Using Pyfred API
+      - file: notebooks/Other/Tutorials/Using XBBG
+      - file: notebooks/Other/Tutorials/How Iris Works

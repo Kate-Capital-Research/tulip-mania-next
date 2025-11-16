@@ -1,0 +1,123 @@
+/* custom.css */
+.bd-main .bd-content .bd-article-container {
+  max-width: 100% !important;
+}
+
+/* 2) Make the full page wrapper 90% (default 88rem) */
+.bd-page-width {
+  max-width: 100% !important;
+  margin-left: auto !important;
+  /* center it */
+  margin-right: auto !important;
+}
+
+
+/* 1) Reduce the top navbar height (default is 4rem) */
+html {
+  --pst-header-height: 3.5rem;
+  /* ↓ from 4rem */
+  --pst-header-article-height: calc(var(--pst-header-height) * 2/3);
+}
+
+html {
+  /* 1) Base size = 12px */
+  --pst-font-size-base: 0.75rem;
+
+  /* 2) Scale headings a touch smaller */
+  --pst-font-size-h1: calc(var(--pst-font-size-base) * 2.2);
+  /* ~26.4px */
+  --pst-font-size-h2: calc(var(--pst-font-size-base) * 2.0);
+  /* 24px */
+  --pst-font-size-h3: calc(var(--pst-font-size-base) * 1.8);
+  /* ~21.6px */
+  --pst-font-size-h4: calc(var(--pst-font-size-base) * 1.6);
+  /* ~19.2px */
+  --pst-font-size-h5: calc(var(--pst-font-size-base) * 1.4);
+  /* ~16.8px */
+  --pst-font-size-h6: calc(var(--pst-font-size-base) * 1.2);
+  /* ~14.4px */
+}
+
+html {
+  --pst-sidebar-header-font-size: 1rem;
+  --pst-sidebar-font-size: 0.9rem;
+  /* ↓ from 0.9rem */
+}
+
+/* 2) Shrink the secondary (right-hand) sidebar (default is 17rem) */
+html {
+  --pst-sidebar-secondary: 12rem;
+  /* ↓ from 17rem */
+}
+
+/* 3) (Optional) If you also want to shrink the primary (left-hand) sidebar,
+   and if your version of the theme supports a --pst-sidebar-primary variable: */
+html {
+  --pst-sidebar-primary: 12rem;
+  /* choose whatever you like */
+}
+
+/* 4) Backup override for primary sidebar if that variable isn’t available */
+.bd-sidebar-primary {
+  width: 12rem !important;
+}
+
+
+/* Force the background of output cells to white in dark mode */
+html[data-theme="dark"] .cell_output,
+html[data-theme="dark"] .output_area,
+html[data-theme="dark"] .output,
+html[data-theme="dark"] div.cell_output div.output,
+html[data-theme="dark"] div.output_area pre {
+  background-color: #ffffff !important;
+  /* White background */
+  color: #000000 !important;
+  /* Black text for readability */
+  border: 1px solid #ccc;
+  /* Light grey border (optional) */
+  padding: 0.5em;
+  border-radius: 6px;
+}
+
+/* Background color for the navigation bar */
+/*html[data-theme="light"] .bd-header header.bd-header {
+  background-color: #e47d7d !important;
+}
+
+/* Change the color of the search bar  */
+/*html[data-theme="light"] kbd {
+  background-color: #ffffff !important; /* your desired background color 
+  color: #dfdfdf !important; /* your desired text color 
+}*/
+
+html[data-theme="light"] {
+  /* --pst-color-heading: #4b1a78;  */
+  /* --pst-color-on-background: #000000;  */
+  --pst-color-primary: #797878;
+  --pst-color-secondary: #565656;
+  --pst-color-secondary-highlight: #333333;
+  /* --pst-color-accent: #000000; */
+  --pst-color-info: rgb(200, 74, 99);
+  --mystnb-source-margin-color: #e17d17;
+  /* Cell left margin color */
+}
+
+/* Headers in the pages not the navbar */
+/* Dark gray text instead of pure black 
+Primary does the color of the links
+Seconday does the color of the links as you hover and clicked
+
+*/
+
+html[data-theme="light"] {
+  --pst-color-info: rgb(200, 74, 99);
+  --mystnb-source-margin-color: #e17d17;
+  /* Cell left margin color */
+}
+
+html[data-theme="dark"] {
+  --mystnb-source-bg-color: #14181e;
+  /* Cell background color */
+  --mystnb-source-margin-color: #e17d17;
+  /* Cell left margin color */
+}

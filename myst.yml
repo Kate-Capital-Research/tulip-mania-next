@@ -1,0 +1,18 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  id: e8913086-819b-4c43-81e4-cf59c1670854
+  title: Kate Capital
+  description: Interactive dashboards and analyses for financial markets
+  authors:
+    - name: Ignacio de Ramon
+  github: https://github.com/Kate-Capital-Research/tulip-mania-next
+  copyright: "© Copyright 2025 Kate Capital"
+  # To autogenerate a Table of Contents, run "jupyter book init --write-toc"
+site:
+  template: book-theme
+  options:
+    favicon: _static/new_tulip.png
+    logo: _static/logo_black_over_white.png
+    logo_dark: _static/logo_white_over_black.png
+    hide_footer_links: true
