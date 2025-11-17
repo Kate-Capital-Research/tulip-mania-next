@@ -24,11 +24,15 @@
    RESPONSIVE CONTENT WIDTH
    ======================================== */
 
-/* Base: Remove default max-width constraints */
-.bd-main .bd-content .bd-article-container {
-  max-width: 100% !important;
-}
-
+/* Base: Remove default max-width constraints for MyST book-theme */
+/* Target multiple possible selectors to ensure compatibility */
+article,
+main,
+.article,
+.content,
+.page,
+[role="main"],
+.bd-main .bd-content .bd-article-container,
 .bd-page-width {
   max-width: 100% !important;
   margin-left: auto !important;
@@ -39,6 +43,12 @@
 
 /* Very large screens (>2000px) - Use more horizontal space */
 @media (min-width: 2000px) {
+  article,
+  main,
+  .article,
+  .content,
+  .page,
+  [role="main"],
   .bd-main .bd-content .bd-article-container {
     max-width: 1800px !important;
     margin-left: auto !important;
@@ -50,6 +60,12 @@
 
 /* Large screens (1400px - 2000px) - Comfortable width for multiple charts */
 @media (min-width: 1400px) and (max-width: 1999px) {
+  article,
+  main,
+  .article,
+  .content,
+  .page,
+  [role="main"],
   .bd-main .bd-content .bd-article-container {
     max-width: 1400px !important;
     margin-left: auto !important;
@@ -61,6 +77,12 @@
 
 /* Medium screens (1024px - 1399px) - Laptops */
 @media (min-width: 1024px) and (max-width: 1399px) {
+  article,
+  main,
+  .article,
+  .content,
+  .page,
+  [role="main"],
   .bd-main .bd-content .bd-article-container {
     max-width: 1200px !important;
     margin-left: auto !important;
@@ -72,6 +94,12 @@
 
 /* Small screens (768px - 1023px) - Small laptops and tablets */
 @media (min-width: 768px) and (max-width: 1023px) {
+  article,
+  main,
+  .article,
+  .content,
+  .page,
+  [role="main"],
   .bd-main .bd-content .bd-article-container {
     max-width: 100% !important;
     padding-left: 1.5rem !important;
@@ -81,6 +109,12 @@
 
 /* Extra small screens (<768px) - Mobile */
 @media (max-width: 767px) {
+  article,
+  main,
+  .article,
+  .content,
+  .page,
+  [role="main"],
   .bd-main .bd-content .bd-article-container {
     max-width: 100% !important;
     padding-left: 1rem !important;
@@ -88,6 +122,78 @@
   }
 }
 
+/* Additional overrides for MyST book-theme container elements */
+.page-container,
+.article-container,
+.content-container,
+#page,
+#article,
+#main-content {
+  max-width: 100% !important;
+}
+
+/* Override any grid template column restrictions */
+@media (min-width: 2000px) {
+  body > div,
+  #root {
+    max-width: 1800px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+@media (min-width: 1400px) and (max-width: 1999px) {
+  body > div,
+  #root {
+    max-width: 1400px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1399px) {
+  body > div,
+  #root {
+    max-width: 1200px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+/* Override MyST CSS custom properties for layout width */
+:root {
+  --article-max-width: 100%;
+  --page-max-width: 100%;
+  --content-max-width: 100%;
+  --grid-max-width: 100%;
+}
+
+@media (min-width: 2000px) {
+  :root {
+    --article-max-width: 1800px;
+    --page-max-width: 1800px;
+    --content-max-width: 1800px;
+    --grid-max-width: 1800px;
+  }
+}
+
+@media (min-width: 1400px) and (max-width: 1999px) {
+  :root {
+    --article-max-width: 1400px;
+    --page-max-width: 1400px;
+    --content-max-width: 1400px;
+    --grid-max-width: 1400px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1399px) {
+  :root {
+    --article-max-width: 1200px;
+    --page-max-width: 1200px;
+    --content-max-width: 1200px;
+    --grid-max-width: 1200px;
+  }
+}
 
 /* 1) Reduce the top navbar height (default is 4rem) */
 html {

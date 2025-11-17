@@ -385,6 +385,33 @@ MyST themes include Tailwind CSS for theme-aware styling:
 
 The default HTML themes include a grid system for layout control. Use CSS classes for positioning without custom configuration.
 
+### Responsive Design Configuration
+
+This project implements a comprehensive responsive design strategy optimized for viewing financial charts and data across multiple screen sizes (13" laptops to 2550x1440 monitors).
+
+**Responsive Breakpoints in `_static/custom.css`:**
+
+- **Very Large (>2000px)**: 1800px max content width - Ideal for large monitors
+- **Large (1400-2000px)**: 1400px max content width - Standard desktop
+- **Medium (1024-1399px)**: 1200px max content width - Laptop (13"-15")
+- **Small (768-1023px)**: 100% width - Small laptops/tablets
+- **Mobile (<768px)**: 100% width - Mobile devices
+
+**CSS Selectors Used:**
+The custom CSS targets multiple selectors to ensure compatibility with MyST book-theme:
+- Semantic HTML5 elements: `article`, `main`
+- Common classes: `.article`, `.content`, `.page`
+- Role attributes: `[role="main"]`
+- Container IDs: `#root`, `#page`, `#main-content`
+- CSS custom properties: `--article-max-width`, `--page-max-width`, `--content-max-width`
+
+**Column Framework Integration:**
+The `tulip_mania_next/columns_framework.py` includes matching responsive breakpoints that automatically stack side-by-side charts on smaller screens while keeping them side-by-side on larger displays.
+
+**Important:** When modifying layout widths, update both:
+1. `_static/custom.css` - Global page layout
+2. `tulip_mania_next/columns_framework.py` - Column container breakpoints (if needed)
+
 ## Theme Configuration
 
 ### Current Theme: book-theme
@@ -406,6 +433,13 @@ site:
 - Support for light/dark mode with separate logos
 - Footer customization options
 - Optimized for documentation and books with hierarchical structure
+- Uses MyST Document Engine (React + Remix framework)
+
+**Important Notes for book-theme:**
+- This is the **MyST book-theme** (part of MyST Document Engine), NOT the Sphinx Book Theme
+- CSS customization requires targeting MyST-specific selectors (e.g., `article`, `main`, `.content`)
+- Layout width is controlled via custom CSS overrides (see `_static/custom.css`)
+- Responsive breakpoints are defined for multi-screen support (13" laptops to 2550x1440 monitors)
 
 ### Alternative: article-theme
 
