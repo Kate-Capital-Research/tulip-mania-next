@@ -9,6 +9,10 @@ project:
   github: https://github.com/Kate-Capital-Research/tulip-mania-next
   copyright: "© Copyright 2025 Kate Capital"
   # To autogenerate a Table of Contents, run "jupyter book init --write-toc"
+
+extends:
+  - toc.yml
+
 site:
   template: book-theme
   options:

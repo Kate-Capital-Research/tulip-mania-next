@@ -1,14 +1,14 @@
 [tool.poetry]
-name = "jupyterbook2-test"
+name = "Tulip-Mania-Next"
 version = "0.1.0"
 description = "JupyterBook 2 test project"
 authors = ["Kate Capital"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = ">=3.12,<3.14"
 jupyter-book = "^2.0.2"
-
+tulip = { git = "https://github.com/Kate-Capital-Research/tulip.git" }
 
 [build-system]
 requires = ["poetry-core"]

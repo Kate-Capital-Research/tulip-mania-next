@@ -1,0 +1,70 @@
+version: 1
+
+# Note: Windows is a Case-insensitive filesystem while Linux EC2 is Case-sensitive filesystem.
+# Therefore, be mindful of file and directory names. Make sure they match exactly, otherwise
+# it might work on Windows but break on Linux.
+
+project:
+  toc:
+    - file: intro.md
+
+    ## =============== Countries =========================
+    - file: notebooks/Countries.ipynb
+      children:
+        - pattern: notebooks/Countries/*.ipynb
+
+    ## =============== Markets =========================
+    - file: notebooks/Markets.ipynb
+      # Cross Sectional stuff (missing)
+      children:
+        - file: notebooks/Markets/Market Commentary.ipynb
+        - file: notebooks/Markets/Correlations.ipynb
+        # Equities
+        - file: notebooks/Markets/Equities.ipynb
+          children:
+            - file: notebooks/Markets/Equities/equities_ERP.ipynb
+            - file: notebooks/Markets/Equities/equities_EPS.ipynb
+            - file: notebooks/Markets/Equities/deep_dives.ipynb
+              children:
+                - pattern: notebooks/Markets/Equities/Deep Dives/*.ipynb
+        # Bonds
+        - file: notebooks/Markets/Bonds.ipynb
+          children:
+            - file: notebooks/Markets/Bonds/flows.ipynb
+            - file: notebooks/Markets/Bonds/yields_today.ipynb
+            - file: notebooks/Markets/Bonds/whats_priced_irs.ipynb
+            # - file: notebooks/Markets/Bonds/yields_through_time.ipynb
+            - file: notebooks/Markets/Bonds/yields_versus.ipynb
+            - file: notebooks/Markets/Bonds/hedged_yields.ipynb
+            - file: notebooks/Markets/Bonds/deep_dives.ipynb
+              children:
+                - pattern: notebooks/Markets/Bonds/Deep Dives/*.ipynb
+        # FX
+        - file: notebooks/Markets/Currencies.ipynb
+        # Other
+        - file: notebooks/Markets/Dollar Liquidity.ipynb
+
+    ## =============== Signals =========================
+    - file: notebooks/Signals.ipynb
+      children:
+        - file: notebooks/Signals/CTA Signals.ipynb
+        - file: notebooks/Signals/NDX vs RTY.ipynb
+
+    ## =============== Oversight =========================
+    - file: notebooks/Oversight.ipynb
+      children:
+        - file: notebooks/Oversight/Risk Dashboard.ipynb
+        - file: notebooks/Oversight/Performance.ipynb
+        - file: notebooks/Oversight/Attribution.ipynb
+        - file: notebooks/Oversight/Trade Management.ipynb
+
+    ## =============== Other =========================
+    - file: notebooks/Other.ipynb
+      children:
+        - file: notebooks/Other/Data Visualizer.ipynb
+        - file: notebooks/Other/Curve Trades.ipynb
+        - file: notebooks/Other/Tutorials/Using Tulips.ipynb
+        - file: notebooks/Other/Tutorials/Plotting.ipynb
+        - file: notebooks/Other/Tutorials/Using Pyfred API.ipynb
+        - file: notebooks/Other/Tutorials/Using XBBG.ipynb
+        - file: notebooks/Other/Tutorials/How Iris Works.ipynb
