@@ -1,14 +1,91 @@
-/* custom.css */
+/* custom.css - Responsive Design for Kate Capital Financial Dashboards
+
+   This stylesheet implements a comprehensive responsive design strategy for
+   viewing financial charts and data across different screen sizes.
+
+   SCREEN SIZE BREAKPOINTS:
+   - Very Large (>2000px):     1800px max content width - Ideal for large monitors
+   - Large (1400-2000px):      1400px max content width - Standard desktop
+   - Medium (1024-1399px):     1200px max content width - Laptop (13"-15")
+   - Small (768-1023px):       100% width - Small laptops/tablets
+   - Mobile (<768px):          100% width - Mobile devices
+
+   KEY FEATURES:
+   - Responsive content width that scales with screen size
+   - Adaptive font sizing for readability across devices
+   - Chart and figure responsiveness with automatic scaling
+   - Side-by-side chart layouts that stack on smaller screens
+   - Optimized spacing and padding for each breakpoint
+
+   Last updated: 2025
+*/
+
+/* ========================================
+   RESPONSIVE CONTENT WIDTH
+   ======================================== */
+
+/* Base: Remove default max-width constraints */
 .bd-main .bd-content .bd-article-container {
   max-width: 100% !important;
 }
 
-/* 2) Make the full page wrapper 90% (default 88rem) */
 .bd-page-width {
   max-width: 100% !important;
   margin-left: auto !important;
-  /* center it */
   margin-right: auto !important;
+}
+
+/* Responsive width constraints for optimal reading and chart viewing */
+
+/* Very large screens (>2000px) - Use more horizontal space */
+@media (min-width: 2000px) {
+  .bd-main .bd-content .bd-article-container {
+    max-width: 1800px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
+}
+
+/* Large screens (1400px - 2000px) - Comfortable width for multiple charts */
+@media (min-width: 1400px) and (max-width: 1999px) {
+  .bd-main .bd-content .bd-article-container {
+    max-width: 1400px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
+}
+
+/* Medium screens (1024px - 1399px) - Laptops */
+@media (min-width: 1024px) and (max-width: 1399px) {
+  .bd-main .bd-content .bd-article-container {
+    max-width: 1200px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+}
+
+/* Small screens (768px - 1023px) - Small laptops and tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .bd-main .bd-content .bd-article-container {
+    max-width: 100% !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+}
+
+/* Extra small screens (<768px) - Mobile */
+@media (max-width: 767px) {
+  .bd-main .bd-content .bd-article-container {
+    max-width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
 }
 
 
@@ -19,23 +96,35 @@ html {
   --pst-header-article-height: calc(var(--pst-header-height) * 2/3);
 }
 
-html {
-  /* 1) Base size = 12px */
-  --pst-font-size-base: 0.75rem;
+/* ========================================
+   RESPONSIVE FONT SIZING
+   ======================================== */
 
-  /* 2) Scale headings a touch smaller */
-  --pst-font-size-h1: calc(var(--pst-font-size-base) * 2.2);
-  /* ~26.4px */
-  --pst-font-size-h2: calc(var(--pst-font-size-base) * 2.0);
-  /* 24px */
-  --pst-font-size-h3: calc(var(--pst-font-size-base) * 1.8);
-  /* ~21.6px */
-  --pst-font-size-h4: calc(var(--pst-font-size-base) * 1.6);
-  /* ~19.2px */
-  --pst-font-size-h5: calc(var(--pst-font-size-base) * 1.4);
-  /* ~16.8px */
-  --pst-font-size-h6: calc(var(--pst-font-size-base) * 1.2);
-  /* ~14.4px */
+html {
+  /* Base font size - responsive across screen sizes */
+  --pst-font-size-base: 0.875rem; /* 14px - more readable than 12px */
+
+  /* Scale headings proportionally */
+  --pst-font-size-h1: calc(var(--pst-font-size-base) * 2.2); /* ~30.8px */
+  --pst-font-size-h2: calc(var(--pst-font-size-base) * 2.0); /* 28px */
+  --pst-font-size-h3: calc(var(--pst-font-size-base) * 1.8); /* ~25.2px */
+  --pst-font-size-h4: calc(var(--pst-font-size-base) * 1.6); /* ~22.4px */
+  --pst-font-size-h5: calc(var(--pst-font-size-base) * 1.4); /* ~19.6px */
+  --pst-font-size-h6: calc(var(--pst-font-size-base) * 1.2); /* ~16.8px */
+}
+
+/* Slightly smaller fonts on very large screens for better density */
+@media (min-width: 2000px) {
+  html {
+    --pst-font-size-base: 0.875rem; /* Keep at 14px even on large screens */
+  }
+}
+
+/* Smaller fonts on mobile for better space utilization */
+@media (max-width: 767px) {
+  html {
+    --pst-font-size-base: 0.8125rem; /* 13px on mobile */
+  }
 }
 
 html {
@@ -120,4 +209,69 @@ html[data-theme="dark"] {
   /* Cell background color */
   --mystnb-source-margin-color: #e17d17;
   /* Cell left margin color */
+}
+
+/* ========================================
+   RESPONSIVE CHARTS AND FIGURES
+   ======================================== */
+
+/* Ensure all figures and charts are responsive */
+.cell_output img,
+.output_area img,
+figure img {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
+}
+
+/* Plotly charts responsive container */
+.plotly-graph-div {
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Ensure Plotly charts scale properly */
+.js-plotly-plot {
+  width: 100% !important;
+}
+
+/* Table responsiveness */
+.cell_output table,
+.output_area table {
+  max-width: 100%;
+  overflow-x: auto;
+  display: block;
+}
+
+/* Better spacing for notebook outputs on different screens */
+@media (min-width: 1400px) {
+  .cell_output,
+  .output_area {
+    margin: 1.5rem 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .cell_output,
+  .output_area {
+    margin: 1rem 0;
+  }
+
+  /* Stack tables vertically on mobile if needed */
+  .cell_output table,
+  .output_area table {
+    font-size: 0.85em;
+  }
+}
+
+/* Improve spacing for multi-chart layouts */
+.cell_output > div,
+.output_area > div {
+  margin-bottom: 1rem;
+}
+
+/* Ensure iframe embeds (if any) are responsive */
+.cell_output iframe,
+.output_area iframe {
+  max-width: 100%;
 }
