@@ -76,15 +76,23 @@ class Column:
             "responsive": True,
             "displayModeBar": True,
             "displaylogo": False,
+            "modeBarButtonsToRemove": ["lasso2d", "select2d"],
         }
         merged_config = {**default_config, **(config or {})}
+
+        # Ensure the figure has autosize enabled for better responsiveness
+        if hasattr(figure, "update_layout"):
+            figure.update_layout(
+                autosize=True,
+                # Remove fixed width/height if they exist
+                width=None,
+                height=None,
+            )
 
         html = figure.to_html(
             include_plotlyjs=include_plotlyjs, full_html=False, config=merged_config
         )
-        responsive_html = (
-            f'<div style="width: 100%; height: 100%; overflow: hidden;">{html}</div>'
-        )
+        responsive_html = f'<div style="width: 100%; min-height: 400px; overflow: hidden;">{html}</div>'
         self.content.append(responsive_html)
 
     def matplotlib(
@@ -181,8 +189,9 @@ class ColumnsContainer:
         """Render the columns as HTML in Jupyter notebook."""
         # Calculate flex values based on width ratios
         total_ratio = sum(col.width_ratio for col in self.columns)
+        num_columns = len(self.columns)
 
-        # Build CSS
+        # Build CSS with enhanced responsive breakpoints
         css = f"""
         <style>
             #{self.container_id} {{
@@ -192,23 +201,63 @@ class ColumnsContainer:
                 width: 100%;
                 margin: 10px 0;
             }}
-            
+
             #{self.container_id} .column {{
                 padding: 10px;
                 {"border: 1px solid #e0e0e0; border-radius: 4px;" if self.border else ""}
+                min-width: 0; /* Prevent flex items from overflowing */
             }}
-            
+
+            /* Ensure images and figures within columns are responsive */
             #{self.container_id} img {{
                 max-width: 100%;
                 height: auto;
             }}
-            
-            @media (max-width: 768px) {{
+
+            #{self.container_id} .plotly-graph-div {{
+                width: 100% !important;
+            }}
+
+            /* Responsive breakpoints */
+
+            /* Large screens (>1400px) - Keep side by side */
+            @media (min-width: 1400px) {{
+                #{self.container_id} {{
+                    gap: {self.gap};
+                }}
+            }}
+
+            /* Medium-large screens (1024px - 1399px) - Stack if 3+ columns */
+            @media (min-width: 1024px) and (max-width: 1399px) {{
+                #{self.container_id} {{
+                    gap: calc({self.gap} * 0.75); /* Slightly smaller gap */
+                }}
+
+                /* Stack columns if 3 or more */
+                {"#{self.container_id} { flex-direction: column; }" if num_columns >= 3 else ""}
+                {"#{self.container_id} .column { flex: 1 1 100% !important; }" if num_columns >= 3 else ""}
+            }}
+
+            /* Small screens (768px - 1023px) - Stack if 2+ columns */
+            @media (min-width: 768px) and (max-width: 1023px) {{
                 #{self.container_id} {{
                     flex-direction: column;
+                    gap: calc({self.gap} * 0.5);
                 }}
                 #{self.container_id} .column {{
                     flex: 1 1 100% !important;
+                }}
+            }}
+
+            /* Mobile (<768px) - Always stack */
+            @media (max-width: 767px) {{
+                #{self.container_id} {{
+                    flex-direction: column;
+                    gap: 1rem;
+                }}
+                #{self.container_id} .column {{
+                    flex: 1 1 100% !important;
+                    padding: 8px;
                 }}
             }}
         </style>

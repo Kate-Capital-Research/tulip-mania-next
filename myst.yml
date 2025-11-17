@@ -20,3 +20,4 @@ site:
     logo: _static/logo_black_over_white.png
     logo_dark: _static/logo_white_over_black.png
     hide_footer_links: true
+    style: _static/custom.css
