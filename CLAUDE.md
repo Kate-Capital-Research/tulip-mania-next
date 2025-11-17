@@ -10,6 +10,14 @@ This is a **Jupyter Book 2** project for Kate Capital's financial market documen
 - Jupyter Book 2.0.2 (built on MyST Document Engine)
 - Python 3.12+ with Poetry for dependency management
 - Jupyter notebooks (.ipynb) for interactive financial analyses
+- Custom Python utilities in `tulip_mania_next/` package
+- Tulip library (Kate Capital's internal financial data package)
+- Node.js 18+ required for MyST engine
+
+**Repository Statistics:**
+- 56 content files (notebooks and markdown)
+- 5 major sections: Countries, Markets, Signals, Oversight, Other
+- Automated GitHub Pages deployment via GitHub Actions
 
 ## Essential Commands
 
@@ -54,6 +62,52 @@ poetry add package-name
 poetry update
 ```
 
+## Prerequisites & Environment Setup
+
+### System Requirements
+- **Python**: 3.12 or higher (required by pyproject.toml)
+- **Node.js**: 18.0.0 or higher (required by MyST Document Engine)
+- **Poetry**: Python package manager (install via `curl -sSL https://install.python-poetry.org | python3 -`)
+- **Git**: For version control and tulip package installation
+
+### Environment Variables
+
+This project requires several API keys and configuration values. Copy `.env.example` to `.env` and configure:
+
+**AI Service Keys:**
+- `ANTHROPIC_API_KEY` - For Claude AI service (ask Ignacio)
+- `GEMINI_API_KEY` - For Google Gemini AI service (ask Ignacio)
+
+**Financial Data APIs:**
+- `FRED_API_KEY` - Federal Reserve Economic Data API (get from https://fred.stlouisfed.org/)
+- `BLOOMBERG_API_KEY` - Bloomberg data access (if applicable)
+- `HAVER_API_KEY` - Haver Analytics API (if applicable)
+- `JP_DATAQUERY_CLIENT_ID` - JPMorgan Markets QIS access
+- `JP_DATAQUERY_CLIENT_SECRET` - JPMorgan Markets QIS secret
+
+**Database Configuration:**
+- `PG_USERNAME`, `PG_PASSWORD`, `PG_HOSTNAME`, `PG_DB` - PostgreSQL connection details
+
+**Note:** The `.env` file is gitignored. Never commit API keys or secrets to version control.
+
+### First-Time Setup
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/Kate-Capital-Research/tulip-mania-next.git
+cd tulip-mania-next
+
+# 2. Copy and configure environment variables
+cp .env.example .env
+# Edit .env with your API keys
+
+# 3. Install dependencies (includes tulip package from GitHub)
+poetry install
+
+# 4. Start development server
+poetry run jupyter-book start
+```
+
 ## Architecture & Configuration
 
 ### Configuration Files
@@ -75,6 +129,31 @@ poetry update
   - First entry replaces `root:` field
 
 **pyproject.toml** - Poetry configuration for dependencies
+- Python version constraints: `>=3.12,<3.14`
+- Main dependencies: `jupyter-book ^2.0.2` and `tulip` (from GitHub)
+- Tulip package: Kate Capital's internal library for financial data analysis
+
+### Custom Python Package
+
+**tulip_mania_next/** - Custom utilities for notebook rendering
+- `columns_framework.py` - Column-based layout system for Jupyter notebooks
+  - `Column` class: Streamlit-like column container for HTML content
+  - Methods: `write()`, `markdown()`, `header()`, `image()`, `html()`, `plot()`
+  - Supports both Plotly and Matplotlib figures
+  - Grid-based responsive layouts
+- `utils.py` - Helper functions and utilities
+- `__init__.py` - Package initialization
+
+**Usage in Notebooks:**
+```python
+from tulip_mania_next.columns_framework import columns
+
+# Create multi-column layouts
+col1, col2, col3 = columns(3)
+col1.header("Column 1")
+col2.plot(my_plotly_figure)
+col3.markdown("**Bold text**")
+```
 
 ### Critical TOC Syntax Rules
 
@@ -174,7 +253,7 @@ This project was migrated from JB1. Key differences:
 ## Deployment
 
 The built site in `_build/html/` is static and can be deployed to:
-- GitHub Pages
+- GitHub Pages (automated via GitHub Actions)
 - Netlify
 - AWS S3 + CloudFront
 - Any static hosting service
@@ -184,12 +263,65 @@ The built site in `_build/html/` is static and can be deployed to:
 python -m http.server 8000 --directory _build/html
 ```
 
+### GitHub Actions Deployment
+
+This repository includes automated deployment to GitHub Pages via `.github/workflows/deploy.yml`.
+
+**Workflow Trigger:**
+- Automatically runs on push to `main` branch
+- Can also be triggered manually via GitHub Actions UI
+
+**Workflow Steps:**
+1. Checkout repository
+2. Setup Node.js 18.x
+3. Install Jupyter Book globally via npm: `npm install -g jupyter-book`
+4. Build HTML assets: `jupyter-book build --html`
+5. Upload artifact to GitHub Pages
+6. Deploy to GitHub Pages
+
+**Important Configuration:**
+- `BASE_URL` is set to `/${{ github.event.repository.name }}` for proper URL routing
+- Requires GitHub Pages to be enabled in repository settings with "GitHub Actions" as source
+- Permissions configured: `contents: read`, `pages: write`, `id-token: write`
+- Uses concurrency control to prevent conflicting deployments
+
+**Note on Python Dependencies:**
+The GitHub Actions workflow uses npm to install Jupyter Book (Node.js version), which doesn't require Python dependencies. However, if notebooks need to be executed during build, you'll need to add Python setup steps:
+```yaml
+- uses: actions/setup-python@v4
+  with:
+    python-version: '3.12'
+- name: Install Poetry
+  run: curl -sSL https://install.python-poetry.org | python3 -
+- name: Install dependencies
+  run: poetry install
+```
+
 ## Build Logging
 
-The `main.py` script provides enhanced logging:
+The `main.py` script provides enhanced logging and build utilities:
+
+**Features:**
 - Creates timestamped logs in `logs/book_build_YYYYMMDD.log`
-- Tracks elapsed time for build operations
-- Useful for debugging build issues
+- Tracks elapsed time for build operations with millisecond precision
+- Captures both stdout and stderr output
+- Useful for debugging build issues and performance analysis
+
+**Log Format:**
+```
+YYYY-MM-DD HH:MM:SS - X.XXX min - LEVEL - MESSAGE
+```
+
+**Log Location:**
+- Directory: `logs/` (created automatically if not exists)
+- Gitignored: Log files are not committed to version control
+- Filename pattern: `book_build_YYYYMMDD.log` (one per day)
+
+**Implementation Details:**
+- Uses Python's `logging` module with custom `ElapsedFilter` and `ElapsedAdapter`
+- Logs to both file and console (stdout)
+- Root logger configured to capture all logs at DEBUG level
+- Build commands executed via `subprocess` module
 
 ## Styling and Customization
 
@@ -318,6 +450,162 @@ Jupyter Book 2 is a distribution of the MyST Document Engine. The underlying cap
 
 This project uses **Jupyter Book 2**. For Jupyter Book 1 documentation, see jupyterbook.org/v1.
 
+## Development Workflow
+
+### Git Branching Strategy
+
+**Main Branch:**
+- `main` - Production branch, triggers GitHub Pages deployment on push
+- Protected: All changes should go through pull requests
+
+**Feature Branches:**
+- Use descriptive names: `feature/add-new-analysis`, `fix/toc-case-sensitivity`
+- Branch from `main`, merge back via pull request
+- Delete after merging
+
+**Development Process:**
+1. Create feature branch: `git checkout -b feature/your-feature`
+2. Make changes and test locally with `poetry run jupyter-book start`
+3. Build and verify: `poetry run jupyter-book build --html --all`
+4. Commit with descriptive messages
+5. Push and create pull request
+6. After merge, GitHub Actions automatically deploys to GitHub Pages
+
+### Code Quality
+
+**Before Committing:**
+- Test notebook changes by running cells and verifying output
+- Check for broken internal links
+- Verify case sensitivity of file references in `toc.yml`
+- Run full build: `poetry run jupyter-book build --html --all`
+- Check build logs for warnings or errors
+
+**Notebook Best Practices:**
+- Clear cell outputs before committing (unless outputs are intentionally versioned)
+- Use meaningful cell execution order
+- Document complex code with markdown cells
+- Test with fresh kernel: "Restart Kernel and Run All"
+
+### Static Assets Management
+
+**Location:** `_static/` directory
+
+**Files:**
+- `logo_black_over_white.png` - Logo for light mode
+- `logo_white_over_black.png` - Logo for dark mode
+- `new_tulip.png` - Favicon
+- `custom.css` - Custom CSS overrides
+- `_color.scss` - SASS color definitions
+
+**Adding New Assets:**
+1. Place files in `_static/` directory
+2. Reference in `myst.yml` for site-wide assets (logos, favicon)
+3. Reference in notebooks/markdown: `![Alt text](_static/filename.png)`
+4. For CSS: Update `myst.yml` site options to include custom stylesheet
+
+## Troubleshooting & Common Tasks
+
+### Dependency Issues
+
+**Problem:** `poetry install` fails with version conflicts
+**Solution:**
+```bash
+# Update poetry lock file
+poetry lock --no-update
+
+# Or force update all dependencies
+poetry update
+
+# Check dependency tree
+poetry show --tree
+```
+
+**Problem:** Tulip package installation fails
+**Solution:**
+- Ensure you have SSH access to GitHub (tulip is a private repository)
+- Configure SSH key: `ssh-keygen` and add to GitHub account
+- Test SSH: `ssh -T git@github.com`
+- Alternatively, use HTTPS with personal access token
+
+### Build Issues
+
+**Problem:** Build fails with "File not found" errors
+**Checklist:**
+1. Verify file exists: `ls -la path/to/file.ipynb`
+2. Check exact case matches in `toc.yml`
+3. Ensure file extension included (`.ipynb` or `.md`)
+4. Verify path is relative to project root
+
+**Problem:** TOC changes not reflected
+**Solution:**
+```bash
+# Force rebuild all pages
+poetry run jupyter-book build --html --all
+
+# Or clean and rebuild
+poetry run jupyter-book clean --all
+poetry run jupyter-book build --html
+```
+
+**Problem:** Notebook execution errors during build
+**Solution:**
+- By default, Jupyter Book 2 doesn't execute notebooks during build
+- Pre-run notebooks locally before committing
+- If execution needed: configure in `myst.yml` under `project.jupyter`
+
+### Development Server Issues
+
+**Problem:** Port 3000 already in use
+**Solution:**
+```bash
+# Find process using port 3000
+lsof -ti:3000
+
+# Kill the process
+kill -9 $(lsof -ti:3000)
+
+# Or use alternative port (if supported by jupyter-book)
+```
+
+**Problem:** Changes not appearing in browser
+**Solution:**
+- Hard refresh: `Ctrl+Shift+R` (Windows/Linux) or `Cmd+Shift+R` (Mac)
+- Clear browser cache
+- Restart development server
+- Check terminal for build errors
+
+### Adding New Content
+
+**Adding a New Notebook:**
+1. Create notebook in appropriate `notebooks/` subdirectory
+2. Add entry to `toc.yml` with exact filename (include `.ipynb`)
+3. Test build: `poetry run jupyter-book build --html --all`
+4. Verify it appears in navigation
+
+**Adding a New Section:**
+1. Create parent notebook (e.g., `notebooks/NewSection.ipynb`)
+2. Create subdirectory: `notebooks/NewSection/`
+3. Add child notebooks in subdirectory
+4. Update `toc.yml` with parent-child hierarchy:
+   ```yaml
+   - file: notebooks/NewSection.ipynb
+     children:
+       - pattern: notebooks/NewSection/*.ipynb
+   ```
+
+### Performance Optimization
+
+**Slow Build Times:**
+- Use `jupyter-book start` for development (incremental builds)
+- Only use `--all` flag when TOC changes
+- Pre-render complex Plotly figures as static images for large datasets
+- Consider splitting large notebooks into smaller ones
+
+**Large Repository Size:**
+- Use `.gitignore` for `_build/`, `logs/`, `.env`
+- Clear notebook outputs before committing (unless needed)
+- Optimize images in `_static/` (use appropriate formats and compression)
+
 ## Documentation References
 
 - [Jupyter Book 2 Documentation](https://next.jupyterbook.org/)
@@ -325,3 +613,79 @@ This project uses **Jupyter Book 2**. For Jupyter Book 1 documentation, see jupy
 - [MyST Table of Contents](https://mystmd.org/guide/table-of-contents)
 - [MyST Website Styling](https://mystmd.org/guide/website-style)
 - [Poetry Documentation](https://python-poetry.org/docs/)
+- [Tulip Package Repository](https://github.com/Kate-Capital-Research/tulip)
+- [GitHub Actions Documentation](https://docs.github.com/en/actions)
+
+## Project Metadata
+
+**Repository:** https://github.com/Kate-Capital-Research/tulip-mania-next
+**Organization:** Kate Capital Research
+**Primary Author:** Ignacio de Ramon
+**Project Type:** Financial Documentation & Interactive Dashboards
+**License:** © 2025 Kate Capital (Proprietary)
+
+**Original Project:**
+- Migrated from: https://github.com/Kate-Capital-Research/tulip-mania
+- Original deployment: https://tulip.katecapllc.com
+
+**Migration Details:**
+- Migration Date: November 2025
+- From: Jupyter Book 1 (Sphinx-based)
+- To: Jupyter Book 2 (MyST-based)
+- Migration Status: ✅ Complete (57 files, all sections functional)
+
+**Current Status:**
+- Development: ✅ Active
+- Deployment: ✅ Automated via GitHub Actions
+- Documentation: ✅ Complete
+- Test Coverage: N/A (documentation project)
+
+## AI Assistant Guidelines
+
+When working with this repository, AI assistants should:
+
+1. **Always verify file case sensitivity** - Linux deployments are case-sensitive
+2. **Test builds before committing** - Run `poetry run jupyter-book build --html --all`
+3. **Never commit secrets** - API keys, passwords, or `.env` files
+4. **Use pattern matching in TOC** - Prefer `pattern:` over individual file entries for scalability
+5. **Document changes** - Update this CLAUDE.md if adding new workflows or structures
+6. **Follow git workflow** - Feature branches → PR → main → auto-deploy
+7. **Check logs** - Review `logs/` directory for build issues
+8. **Respect dependencies** - Don't upgrade major versions without testing
+9. **Preserve formatting** - Match existing code style and notebook structure
+10. **Consider performance** - Large notebooks should be optimized or split
+
+**Quick Health Check:**
+```bash
+# Verify environment
+poetry --version
+python --version
+node --version
+
+# Install and build
+poetry install
+poetry run jupyter-book build --html --all
+
+# Should complete in ~2-3 seconds with no errors
+```
+
+**Common AI Tasks:**
+- Adding new analysis notebooks
+- Updating TOC structure
+- Fixing broken references
+- Optimizing notebook performance
+- Debugging build errors
+- Updating documentation
+- Adding new visualizations
+
+**Key Files to Never Modify Without Review:**
+- `myst.yml` - Site configuration
+- `toc.yml` - Navigation structure
+- `pyproject.toml` - Dependencies
+- `.github/workflows/deploy.yml` - Deployment pipeline
+
+---
+
+*Last Updated: November 2025*
+*Document Version: 2.0*
+*For questions or issues, contact: Ignacio de Ramon (Kate Capital)*
