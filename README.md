@@ -81,6 +81,14 @@ To export specific pages to PDF:
 poetry run jupyter book build --pdf intro.md
 ```
 
+## Live Deployment
+
+The latest version of this documentation is automatically deployed to GitHub Pages:
+
+**🌐 Live Site:** https://kate-capital-research.github.io/tulip-mania-next/
+
+The site is automatically built and deployed via GitHub Actions whenever changes are pushed to the `main` branch. You can view the deployed version while developing locally to compare your changes.
+
 ## Configuration
 
 ### myst.yml
