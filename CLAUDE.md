@@ -398,12 +398,30 @@ This project implements a comprehensive responsive design strategy optimized for
 - **Mobile (<768px)**: 100% width - Mobile devices
 
 **CSS Selectors Used:**
-The custom CSS targets multiple selectors to ensure compatibility with MyST book-theme:
-- Semantic HTML5 elements: `article`, `main`
-- Common classes: `.article`, `.content`, `.page`
-- Role attributes: `[role="main"]`
-- Container IDs: `#root`, `#page`, `#main-content`
-- CSS custom properties: `--article-max-width`, `--page-max-width`, `--content-max-width`
+
+**CORRECT MyST book-theme selectors (use these):**
+- `main.article-grid` - The main grid container
+- `article.article-grid` - The article grid wrapper
+- `article.col-screen` - The content column
+
+**INCORRECT selectors (do NOT use):**
+- `.bd-main`, `.bd-content`, `.bd-article-container` - These are Sphinx Book Theme classes, NOT MyST
+- Generic `article`, `main`, `.content`, `.page` - Too broad, may not match MyST structure
+- `#root`, `#page`, `#main-content` - These IDs don't exist in MyST book-theme
+
+**Critical Lesson Learned:**
+MyST Document Engine's book-theme uses a CSS Grid system with specific classes. The DOM structure is:
+```html
+<main class="article-grid grid-gap">
+  <article class="article-grid subgrid-gap col-screen article content">
+    <!-- content here -->
+  </article>
+</main>
+```
+
+Generic CSS selectors targeting `article` or `main` without the `.article-grid` class may not work due to CSS specificity. Always use the full selector: `main.article-grid`, `article.article-grid`, `article.col-screen`.
+
+**Investigation Source:** Analysis of `jupyter-book/myst-theme` GitHub repository revealed the actual React components (`/themes/book/app/routes/$.tsx`) and CSS Grid definitions (`/styles/grid-system.css`) used by book-theme.
 
 **Column Framework Integration:**
 The `tulip_mania_next/columns_framework.py` includes matching responsive breakpoints that automatically stack side-by-side charts on smaller screens while keeping them side-by-side on larger displays.
