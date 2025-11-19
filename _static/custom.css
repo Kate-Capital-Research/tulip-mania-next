@@ -17,9 +17,9 @@
    minmax() values for content columns and reducing side margin fr values.
 
    SCREEN SIZE BREAKPOINTS:
-   - Very Large (≥2000px):     Expanded grid (15ch-30ch columns, 0.5fr margins)
-   - Large (1536-1999px):      Good expansion (12ch-25ch columns, 0.75fr margins)
-   - Medium-large (1280-1535px): Moderate expansion (10ch-20ch columns, 1fr margins)
+   - Very Large (≥2000px):     MAXIMUM expansion (20ch-50ch columns, 0.25fr margins, 0.5rem padding)
+   - Large (1536-1999px):      Significant expansion (15ch-40ch columns, 0.5fr margins, 1rem padding)
+   - Medium-large (1280-1535px): Good expansion (12ch-30ch columns, 0.75fr margins, 1.5rem padding)
    - Smaller (<1280px):        Default MyST grid (no override)
 
    KEY FEATURES:
@@ -55,60 +55,60 @@
    1fr [screen-end]
 */
 
-/* Very large screens (>2000px) - Expand content significantly */
+/* Very large screens (≥2000px) - MAXIMUM content expansion for large monitors */
 @media (min-width: 2000px) {
   main.article-grid,
   article.article-grid {
     grid-template-columns:
-      [screen-start] 0.5fr
-      [page-start] 1.5rem
+      [screen-start] 0.25fr
+      [page-start] 0.5rem
       [body-outset-start body-start gutter-left-start]
-      minmax(15ch, 30ch) [body-inset-start middle-start]
-      minmax(15ch, 30ch) [gutter-left-end]
-      minmax(15ch, 30ch) minmax(15ch, 30ch)
-      [gutter-right-start] minmax(15ch, 30ch)
+      minmax(20ch, 50ch) [body-inset-start middle-start]
+      minmax(20ch, 50ch) [gutter-left-end]
+      minmax(20ch, 50ch) minmax(20ch, 50ch)
+      [gutter-right-start] minmax(20ch, 50ch)
       [middle-end body-inset-end]
-      minmax(15ch, 30ch) [body-end gutter-right-end body-outset-end]
-      1.5rem [page-end]
-      0.5fr [screen-end] !important;
+      minmax(20ch, 50ch) [body-end gutter-right-end body-outset-end]
+      0.5rem [page-end]
+      0.25fr [screen-end] !important;
   }
 }
 
-/* Large screens (1536px - 1999px) - Good expansion for desktop */
+/* Large screens (1536px - 1999px) - Significant expansion for desktop */
 @media (min-width: 1536px) and (max-width: 1999px) {
   main.article-grid,
   article.article-grid {
     grid-template-columns:
-      [screen-start] 0.75fr
-      [page-start] 2rem
+      [screen-start] 0.5fr
+      [page-start] 1rem
       [body-outset-start body-start gutter-left-start]
-      minmax(12ch, 25ch) [body-inset-start middle-start]
-      minmax(12ch, 25ch) [gutter-left-end]
-      minmax(12ch, 25ch) minmax(12ch, 25ch)
-      [gutter-right-start] minmax(12ch, 25ch)
+      minmax(15ch, 40ch) [body-inset-start middle-start]
+      minmax(15ch, 40ch) [gutter-left-end]
+      minmax(15ch, 40ch) minmax(15ch, 40ch)
+      [gutter-right-start] minmax(15ch, 40ch)
       [middle-end body-inset-end]
-      minmax(12ch, 25ch) [body-end gutter-right-end body-outset-end]
-      2rem [page-end]
-      0.75fr [screen-end] !important;
+      minmax(15ch, 40ch) [body-end gutter-right-end body-outset-end]
+      1rem [page-end]
+      0.5fr [screen-end] !important;
   }
 }
 
-/* Medium-large screens (1280px - 1535px) - Moderate expansion */
+/* Medium-large screens (1280px - 1535px) - Good expansion */
 @media (min-width: 1280px) and (max-width: 1535px) {
   main.article-grid,
   article.article-grid {
     grid-template-columns:
-      [screen-start] 1fr
-      [page-start] 2.5rem
+      [screen-start] 0.75fr
+      [page-start] 1.5rem
       [body-outset-start body-start gutter-left-start]
-      minmax(10ch, 20ch) [body-inset-start middle-start]
-      minmax(10ch, 20ch) [gutter-left-end]
-      minmax(10ch, 20ch) minmax(10ch, 20ch)
-      [gutter-right-start] minmax(10ch, 20ch)
+      minmax(12ch, 30ch) [body-inset-start middle-start]
+      minmax(12ch, 30ch) [gutter-left-end]
+      minmax(12ch, 30ch) minmax(12ch, 30ch)
+      [gutter-right-start] minmax(12ch, 30ch)
       [middle-end body-inset-end]
-      minmax(10ch, 20ch) [body-end gutter-right-end body-outset-end]
-      2.5rem [page-end]
-      1fr [screen-end] !important;
+      minmax(12ch, 30ch) [body-end gutter-right-end body-outset-end]
+      1.5rem [page-end]
+      0.75fr [screen-end] !important;
   }
 }
 
