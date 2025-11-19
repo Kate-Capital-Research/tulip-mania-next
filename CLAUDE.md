@@ -195,6 +195,119 @@ notebooks/
     └── ...            # Data visualizer, curve trades
 ```
 
+### Country Dashboard Template
+
+**Location:** `notebooks/Countries/ctry_template.ipynb`
+
+A standardized template for creating consistent country economic dashboards. All country notebooks (files starting with `ctry_`) should follow this structure.
+
+**Template Structure:**
+
+The template organizes economic data into 6 main sections:
+
+1. **Growth: Activity & Output**
+   - Economic forecasts (Goldman Sachs, consensus)
+   - Growth nowcasts (CAI, Bloomberg, country-specific)
+   - GDP growth & components
+   - Business activity surveys (PMIs)
+   - Retail sales & consumer activity
+   - Industrial production & manufacturing
+
+2. **Prices: Inflation & Wages**
+   - Headline & core inflation
+   - Inflation expectations & surveys
+   - Inflation nowcasts & forecasts
+   - Wage growth & labor costs
+   - Inflation components (goods vs services)
+
+3. **Slack: Output Gap & Capacity Utilization**
+   - Output gap estimates
+   - Capacity utilization rates
+
+4. **Employment: Labor Market Conditions**
+   - Unemployment rate & labor force
+   - Employment growth & payrolls
+   - Jobless claims & leading indicators
+   - Job openings & labor turnover
+   - Alternative employment data sources
+
+5. **Financial Conditions**
+   - Credit growth & debt levels
+   - Financial conditions indices
+   - Credit spreads & market stress
+   - External balance (current account, trade)
+
+6. **Fiscal Conditions**
+   - Budget balance & deficit
+   - Public debt levels
+   - Fiscal policy outlook
+
+**Using the Template:**
+
+1. **Copy the template:**
+   ```bash
+   cp notebooks/Countries/ctry_template.ipynb notebooks/Countries/ctry_newcountry.ipynb
+   ```
+
+2. **Set parameters** in the second cell:
+   ```python
+   ctry_iso2 = "XX"           # ISO 2-letter code
+   ctry_iso3 = "XXX"          # ISO 3-letter code
+   ctry_name = "Country Name"
+   ccy = "XXX"                # Currency code
+   goldman_ctry_id = "XX"     # Goldman Sachs geography ID
+   bloomberg_ctry_prefix = "XX"  # Bloomberg country prefix
+   haver_ctry_suffix = "XXXXX"   # Haver database suffix
+   ```
+
+3. **Populate data sources:**
+   - Each section has placeholder cells marked with `display(Markdown("**Note:** ..."))`
+   - Replace placeholders with country-specific tickers from Bloomberg, Haver, FRED, etc.
+   - Not all sections may have data for every country - that's okay!
+
+4. **Add to TOC:**
+   Update `toc.yml` to include your new country notebook.
+
+**Benefits of Standardization:**
+
+- **Consistency:** Same structure makes it easy to compare across countries
+- **Completeness:** Template ensures no important indicators are missed
+- **Maintainability:** Updates to structure can be applied systematically
+- **Onboarding:** New analysts can quickly understand any country dashboard
+
+**Existing Country Dashboards:**
+
+Current country notebooks follow varying structures. Over time, they should be migrated to this standard template:
+
+- `ctry_usa.ipynb` - Most comprehensive, serves as reference implementation
+- `ctry_australia.ipynb`, `ctry_brazil.ipynb`, `ctry_canada.ipynb`
+- `ctry_china.ipynb`, `ctry_eurozone.ipynb`, `ctry_germany.ipynb`
+- `ctry_japan.ipynb`, `ctry_mexico.ipynb`, `ctry_new_zealand.ipynb`
+- `ctry_sweden.ipynb`, `ctry_uk.ipynb`
+
+**Data Source Patterns:**
+
+Common ticker patterns to look for:
+
+- **Goldman CAI:** `gs.get_CAI_series(geographyId="{ISO2}")`
+- **Bloomberg Nowcast:** `BENW{ISO2}GC Index` or `BENW{ISO2}NC Index`
+- **Bloomberg PMIs:** `MPMI{ISO2}{MA/SA/CA} Index` (Manufacturing/Services/Composite)
+- **Haver:** Country-specific database suffixes (e.g., `@USECON`, `@CANADA`, `@JAPAN`)
+- **FRED:** Varies significantly by indicator
+
+**AI Summary Integration:**
+
+Use the `iris.summarize()` function to generate AI summaries at the end of each section:
+
+```python
+section_summary = iris.summarize(
+    combined_collection,
+    custom_prompt="Analyze trends and highlight key developments...",
+    bullets=5
+)
+section_summary.html()
+```
+
 ## Important Platform Differences
 
 ### Case Sensitivity
