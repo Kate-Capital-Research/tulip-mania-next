@@ -50,6 +50,48 @@ poetry run python main.py --build
 poetry run python main.py --build-all
 ```
 
+### Notebook Execution and Validation
+
+The `main.py` script provides automated notebook execution and error checking capabilities using `nbclient` for parallel processing.
+
+**Execute all notebooks then build:**
+```bash
+# Default: Execute all notebooks in parallel, then build
+poetry run python main.py --build
+
+# Execute with custom worker count (default: CPU count)
+poetry run python main.py --build --max-workers 4
+
+# Execute with custom timeout per notebook (default: 600s)
+poetry run python main.py --build --notebook-timeout 300
+```
+
+**Skip notebook execution:**
+```bash
+# Build without re-executing notebooks (uses existing outputs)
+poetry run python main.py --build --skip-regeneration
+```
+
+**Check notebooks for errors:**
+```bash
+# Check all notebooks for error cells (no execution, no build)
+poetry run python main.py --check-notebooks
+```
+
+**How it works:**
+- **Parallel execution**: Uses `ProcessPoolExecutor` to execute notebooks in parallel (huge speed gain for 51+ notebooks)
+- **Timeout protection**: Each notebook has a configurable timeout (default 10 minutes)
+- **Error tracking**: Detailed error reporting with notebook path, cell number, and error message
+- **Continue on error**: One failing notebook doesn't stop the entire build process
+- **In-place execution**: Notebooks are executed and saved with outputs in the same location
+- **Smart exclusion**: Automatically excludes `_build/` and `.ipynb_checkpoints/` directories
+
+**Performance considerations:**
+- Default worker count = CPU count (use `--max-workers` to limit)
+- 51 notebooks with 8 workers: ~5-10 minutes (depends on notebook complexity)
+- Use `--skip-regeneration` during development to speed up builds
+- Use `--check-notebooks` to quickly validate notebooks without re-execution
+
 ### Dependency Management
 ```bash
 # Install all dependencies
