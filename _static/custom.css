@@ -100,3 +100,30 @@ figure img {
 .output_area iframe {
   max-width: 100%;
 }
+
+/* ========================================
+   RESPONSIVE WIDTH EXPANSION FOR LARGE SCREENS
+   ======================================== */
+
+/* Default: Let MyST handle the width */
+
+/* Large screens (≥1600px) - Expand the overall page container */
+@media (min-width: 1600px) {
+  html {
+    --pst-page-width: 90%;
+  }
+}
+
+/* Very large screens (≥2000px) - Your 2550x1440 monitor */
+@media (min-width: 2000px) {
+  html {
+    --pst-page-width: 92%;
+  }
+}
+
+/* Ultra-wide (≥2400px) - Maximum expansion */
+@media (min-width: 2400px) {
+  html {
+    --pst-page-width: 95%;
+  }
+}
