@@ -15,6 +15,17 @@ extends:
 
 site:
   template: book-theme
+  nav:
+    - title: Dashboards
+      url: /
+    - title: Oversight
+      url: /oversight
+  # Commented out actions - using nav instead for centered navigation
+  # actions:
+  #   - title: Dashboards
+  #     url: /
+  #   - title: Oversight
+  #     url: https://tulip.katecapllc.com/lotus/
   options:
     favicon: _static/new_tulip.png
     logo: _static/logo_black_over_white.png
