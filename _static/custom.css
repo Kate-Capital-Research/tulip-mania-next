@@ -37,59 +37,42 @@
 main.article-grid,
 article.article-grid,
 article.col-screen {
-  max-width: 100% !important;
+  width: min(100%, calc(100vw - clamp(1.5rem, 3vw, 4rem))) !important;
+  max-width: none !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(0.75rem, 1.5vw, 1.75rem);
 }
 
-/* Responsive width constraints for optimal reading and chart viewing */
+/* Allow the article subgrid to stretch fully within the available space */
+article.article-grid.content,
+article.article-grid.subgrid-gap,
+article.col-screen.content {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
 
-/* Very large screens (>2000px) - Use more horizontal space */
+/* Expand the overall grid to a single fluid column and remove Tailwind typography caps */
+main.article-grid,
+article.article-grid,
+article.article-grid .article-body,
+article.article-grid .content {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.article-grid .prose,
+.article-grid .article-body.prose,
+.article-grid .content .prose,
+.article-grid .article-body .prose {
+  max-width: none !important;
+  width: 100% !important;
+}
+
+/* Give ultrawide monitors a little extra breathing room without capping width */
 @media (min-width: 2000px) {
   main.article-grid,
   article.article-grid,
   article.col-screen {
-    max-width: 1800px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-}
-
-/* Large screens (1400px - 2000px) - Comfortable width for multiple charts */
-@media (min-width: 1400px) and (max-width: 1999px) {
-  main.article-grid,
-  article.article-grid,
-  article.col-screen {
-    max-width: 1400px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-}
-
-/* Medium screens (1024px - 1399px) - Laptops */
-@media (min-width: 1024px) and (max-width: 1399px) {
-  main.article-grid,
-  article.article-grid,
-  article.col-screen {
-    max-width: 1200px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-}
-
-/* Small screens (768px - 1023px) - Small laptops and tablets */
-@media (min-width: 768px) and (max-width: 1023px) {
-  main.article-grid,
-  article.article-grid,
-  article.col-screen {
-    max-width: 100% !important;
-  }
-}
-
-/* Extra small screens (<768px) - Mobile */
-@media (max-width: 767px) {
-  main.article-grid,
-  article.article-grid,
-  article.col-screen {
-    max-width: 100% !important;
+    width: min(100%, calc(100vw - clamp(2rem, 4vw, 6rem))) !important;
+    padding-inline: clamp(1rem, 2vw, 2.5rem);
   }
 }
 
