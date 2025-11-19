@@ -12,9 +12,9 @@
    - <article class="article-grid subgrid-gap col-screen article content">
 
    SCREEN SIZE BREAKPOINTS:
-   - Very Large (≥2000px):     Expanded grid (15ch-30ch columns, 0.5fr margins)
-   - Large (1536-1999px):      Good expansion (12ch-25ch columns, 0.75fr margins)
-   - Medium-large (1280-1535px): Moderate expansion (10ch-20ch columns, 1fr margins)
+   - Very Large (≥2000px):     MAXIMUM expansion (20ch-50ch columns, 0.25fr margins, 0.5rem padding)
+   - Large (1536-1999px):      Significant expansion (15ch-40ch columns, 0.5fr margins, 1rem padding)
+   - Medium-large (1280-1535px): Good expansion (12ch-30ch columns, 0.75fr margins, 1.5rem padding)
    - Smaller (<1280px):        Default MyST grid (no override)
 
    KEY FEATURES:
