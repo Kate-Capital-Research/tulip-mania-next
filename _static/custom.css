@@ -50,22 +50,6 @@ article.col-screen.content {
   grid-template-columns: minmax(0, 1fr) !important;
 }
 
-/* Expand the overall grid to a single fluid column and remove Tailwind typography caps */
-main.article-grid,
-article.article-grid,
-article.article-grid .article-body,
-article.article-grid .content {
-  grid-template-columns: minmax(0, 1fr) !important;
-}
-
-.article-grid .prose,
-.article-grid .article-body.prose,
-.article-grid .content .prose,
-.article-grid .article-body .prose {
-  max-width: none !important;
-  width: 100% !important;
-}
-
 /* Give ultrawide monitors a little extra breathing room without capping width */
 @media (min-width: 2000px) {
   main.article-grid,
