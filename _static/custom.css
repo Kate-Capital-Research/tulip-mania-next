@@ -12,24 +12,24 @@
    - <article class="article-grid subgrid-gap col-screen article content">
 
    SCREEN SIZE BREAKPOINTS:
-   - Very Large (>2000px):     1800px max content width - Ideal for large monitors
-   - Large (1400-2000px):      1400px max content width - Standard desktop
-   - Medium (1024-1399px):     1200px max content width - Laptop (13"-15")
-   - Small (768-1023px):       100% width - Small laptops/tablets
-   - Mobile (<768px):          100% width - Mobile devices
+   - Very Large (≥2000px):     Expanded grid (15ch-30ch columns, 0.5fr margins)
+   - Large (1536-1999px):      Good expansion (12ch-25ch columns, 0.75fr margins)
+   - Medium-large (1280-1535px): Moderate expansion (10ch-20ch columns, 1fr margins)
+   - Smaller (<1280px):        Default MyST grid (no override)
 
    KEY FEATURES:
-   - Responsive content width that scales with screen size
+   - CSS Grid column overrides for true content expansion on large screens
+   - Reduced side margins (fr values) to allocate more space to content
    - Adaptive font sizing for readability across devices
    - Chart and figure responsiveness with automatic scaling
    - Side-by-side chart layouts that stack on smaller screens
    - Optimized spacing and padding for each breakpoint
 
-   Last updated: 2025
+   Last updated: November 2025
 */
 
 /* ========================================
-   RESPONSIVE CONTENT WIDTH
+   RESPONSIVE CONTENT WIDTH - CSS GRID OVERRIDES
    ======================================== */
 
 /* Base: Target the actual MyST book-theme grid containers */
