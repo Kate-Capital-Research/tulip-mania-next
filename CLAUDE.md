@@ -389,27 +389,93 @@ The default HTML themes include a grid system for layout control. Use CSS classe
 
 This project implements a comprehensive responsive design strategy optimized for viewing financial charts and data across multiple screen sizes (13" laptops to 2550x1440 monitors).
 
+**CRITICAL APPROACH - CSS Grid Override:**
+
+MyST book-theme uses CSS Grid with `grid-template-columns`. To expand content on large screens, you MUST override the grid column definitions, NOT just set `max-width`. Setting `max-width` constrains the container but doesn't expand content - the side margins just consume extra space.
+
+**How MyST Grid Works:**
+
+The default grid structure from `@myst-theme/styles`:
+```css
+grid-template-columns:
+  [screen-start] 1fr                      /* Left margin (flexible) */
+  [page-start] 3rem                       /* Left padding */
+  [body-outset-start body-start gutter-left-start]
+  minmax(8ch, 10ch) [body-inset-start middle-start]    /* Content columns */
+  minmax(8ch, 10ch) [gutter-left-end]
+  minmax(8ch, 10ch) minmax(8ch, 10ch)
+  [gutter-right-start] minmax(8ch, 10ch)
+  [middle-end body-inset-end]
+  minmax(8ch, 10ch) [body-end gutter-right-end body-outset-end]
+  3rem [page-end]                         /* Right padding */
+  1fr [screen-end];                       /* Right margin (flexible) */
+```
+
 **Responsive Breakpoints in `_static/custom.css`:**
 
-- **Very Large (>2000px)**: 1800px max content width - Ideal for large monitors
-- **Large (1400-2000px)**: 1400px max content width - Standard desktop
-- **Medium (1024-1399px)**: 1200px max content width - Laptop (13"-15")
-- **Small (768-1023px)**: 100% width - Small laptops/tablets
-- **Mobile (<768px)**: 100% width - Mobile devices
+- **Very Large (≥2000px)**: Grid override with 15ch-30ch columns, 0.5fr margins - Expands content significantly
+- **Large (1536-1999px)**: Grid override with 12ch-25ch columns, 0.75fr margins - Good desktop expansion
+- **Medium-large (1280-1535px)**: Grid override with 10ch-20ch columns, 1fr margins - Moderate expansion
+- **Smaller (<1280px)**: Default MyST grid (no override needed)
+
+**Implementation Example:**
+
+```css
+@media (min-width: 2000px) {
+  main.article-grid,
+  article.article-grid {
+    grid-template-columns:
+      [screen-start] 0.5fr              /* Reduce side margins */
+      [page-start] 1.5rem               /* Reduce padding */
+      [body-outset-start body-start gutter-left-start]
+      minmax(15ch, 30ch) [body-inset-start middle-start]  /* Expand content */
+      minmax(15ch, 30ch) [gutter-left-end]
+      minmax(15ch, 30ch) minmax(15ch, 30ch)
+      [gutter-right-start] minmax(15ch, 30ch)
+      [middle-end body-inset-end]
+      minmax(15ch, 30ch) [body-end gutter-right-end body-outset-end]
+      1.5rem [page-end]
+      0.5fr [screen-end] !important;
+  }
+}
+```
 
 **CSS Selectors Used:**
-The custom CSS targets multiple selectors to ensure compatibility with MyST book-theme:
-- Semantic HTML5 elements: `article`, `main`
-- Common classes: `.article`, `.content`, `.page`
-- Role attributes: `[role="main"]`
-- Container IDs: `#root`, `#page`, `#main-content`
-- CSS custom properties: `--article-max-width`, `--page-max-width`, `--content-max-width`
+
+**CORRECT MyST book-theme selectors (use these):**
+- `main.article-grid` - The main grid container
+- `article.article-grid` - The article grid wrapper
+- `article.col-screen` - The content column
+
+**INCORRECT selectors (do NOT use):**
+- `.bd-main`, `.bd-content`, `.bd-article-container` - These are Sphinx Book Theme classes, NOT MyST
+- Generic `article`, `main`, `.content`, `.page` - Too broad, may not match MyST structure
+- `#root`, `#page`, `#main-content` - These IDs don't exist in MyST book-theme
+
+**Critical Lessons Learned:**
+
+1. **max-width doesn't work**: Setting `max-width` on grid containers constrains the container but doesn't expand content columns. The flexible `1fr` side margins just consume the extra space while content columns remain at their default `minmax(8ch, 10ch)` values.
+
+2. **Must override grid-template-columns**: To actually expand content, override `grid-template-columns` with larger `minmax()` values for content columns and smaller `fr` values for side margins.
+
+3. **Grid structure matters**: MyST uses named grid lines (`[screen-start]`, `[page-start]`, etc.). Preserve these names when overriding to maintain compatibility with theme components.
+
+**DOM Structure:**
+```html
+<main class="article-grid grid-gap">
+  <article class="article-grid subgrid-gap col-screen article content">
+    <!-- content here -->
+  </article>
+</main>
+```
+
+**Investigation Source:** Analysis of `jupyter-book/myst-theme` GitHub repository revealed the actual React components (`/themes/book/app/routes/$.tsx`) and CSS Grid definitions (`/styles/grid-system.css`, `/styles/index.js`) used by book-theme.
 
 **Column Framework Integration:**
 The `tulip_mania_next/columns_framework.py` includes matching responsive breakpoints that automatically stack side-by-side charts on smaller screens while keeping them side-by-side on larger displays.
 
 **Important:** When modifying layout widths, update both:
-1. `_static/custom.css` - Global page layout
+1. `_static/custom.css` - Global page layout (use CSS Grid overrides)
 2. `tulip_mania_next/columns_framework.py` - Column container breakpoints (if needed)
 
 ## Theme Configuration

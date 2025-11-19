@@ -11,87 +11,108 @@
    - <main class="article-grid grid-gap">
    - <article class="article-grid subgrid-gap col-screen article content">
 
+   CRITICAL APPROACH:
+   MyST uses CSS Grid with grid-template-columns. To expand content on large
+   screens, we override grid-template-columns (NOT max-width), increasing the
+   minmax() values for content columns and reducing side margin fr values.
+
    SCREEN SIZE BREAKPOINTS:
-   - Very Large (>2000px):     1800px max content width - Ideal for large monitors
-   - Large (1400-2000px):      1400px max content width - Standard desktop
-   - Medium (1024-1399px):     1200px max content width - Laptop (13"-15")
-   - Small (768-1023px):       100% width - Small laptops/tablets
-   - Mobile (<768px):          100% width - Mobile devices
+   - Very Large (≥2000px):     Expanded grid (15ch-30ch columns, 0.5fr margins)
+   - Large (1536-1999px):      Good expansion (12ch-25ch columns, 0.75fr margins)
+   - Medium-large (1280-1535px): Moderate expansion (10ch-20ch columns, 1fr margins)
+   - Smaller (<1280px):        Default MyST grid (no override)
 
    KEY FEATURES:
-   - Responsive content width that scales with screen size
+   - CSS Grid column overrides for true content expansion on large screens
+   - Reduced side margins (fr values) to allocate more space to content
    - Adaptive font sizing for readability across devices
    - Chart and figure responsiveness with automatic scaling
    - Side-by-side chart layouts that stack on smaller screens
    - Optimized spacing and padding for each breakpoint
 
-   Last updated: 2025
+   Last updated: November 2025
 */
 
 /* ========================================
-   RESPONSIVE CONTENT WIDTH
+   RESPONSIVE CONTENT WIDTH - CSS GRID OVERRIDES
    ======================================== */
 
-/* Base: Target the actual MyST book-theme grid containers */
-/* MyST uses main.article-grid and article.article-grid, NOT Sphinx .bd-* classes */
-main.article-grid,
-article.article-grid,
-article.col-screen {
-  max-width: 100% !important;
-}
+/* MyST book-theme uses CSS Grid with grid-template-columns.
+   To expand content on large screens, we need to override the grid definitions,
+   not just set max-width (which doesn't expand content, only side margins).
 
-/* Responsive width constraints for optimal reading and chart viewing */
+   Grid structure (from @myst-theme/styles):
+   [screen-start] 1fr
+   [page-start] 3rem
+   [body-outset-start body-start gutter-left-start]
+   minmax(8ch, 10ch) [body-inset-start middle-start]
+   minmax(8ch, 10ch) [gutter-left-end]
+   minmax(8ch, 10ch) minmax(8ch, 10ch)
+   [gutter-right-start] minmax(8ch, 10ch)
+   [middle-end body-inset-end]
+   minmax(8ch, 10ch) [body-end gutter-right-end body-outset-end]
+   3rem [page-end]
+   1fr [screen-end]
+*/
 
-/* Very large screens (>2000px) - Use more horizontal space */
+/* Very large screens (>2000px) - Expand content significantly */
 @media (min-width: 2000px) {
   main.article-grid,
-  article.article-grid,
-  article.col-screen {
-    max-width: 1800px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+  article.article-grid {
+    grid-template-columns:
+      [screen-start] 0.5fr
+      [page-start] 1.5rem
+      [body-outset-start body-start gutter-left-start]
+      minmax(15ch, 30ch) [body-inset-start middle-start]
+      minmax(15ch, 30ch) [gutter-left-end]
+      minmax(15ch, 30ch) minmax(15ch, 30ch)
+      [gutter-right-start] minmax(15ch, 30ch)
+      [middle-end body-inset-end]
+      minmax(15ch, 30ch) [body-end gutter-right-end body-outset-end]
+      1.5rem [page-end]
+      0.5fr [screen-end] !important;
   }
 }
 
-/* Large screens (1400px - 2000px) - Comfortable width for multiple charts */
-@media (min-width: 1400px) and (max-width: 1999px) {
+/* Large screens (1536px - 1999px) - Good expansion for desktop */
+@media (min-width: 1536px) and (max-width: 1999px) {
   main.article-grid,
-  article.article-grid,
-  article.col-screen {
-    max-width: 1400px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+  article.article-grid {
+    grid-template-columns:
+      [screen-start] 0.75fr
+      [page-start] 2rem
+      [body-outset-start body-start gutter-left-start]
+      minmax(12ch, 25ch) [body-inset-start middle-start]
+      minmax(12ch, 25ch) [gutter-left-end]
+      minmax(12ch, 25ch) minmax(12ch, 25ch)
+      [gutter-right-start] minmax(12ch, 25ch)
+      [middle-end body-inset-end]
+      minmax(12ch, 25ch) [body-end gutter-right-end body-outset-end]
+      2rem [page-end]
+      0.75fr [screen-end] !important;
   }
 }
 
-/* Medium screens (1024px - 1399px) - Laptops */
-@media (min-width: 1024px) and (max-width: 1399px) {
+/* Medium-large screens (1280px - 1535px) - Moderate expansion */
+@media (min-width: 1280px) and (max-width: 1535px) {
   main.article-grid,
-  article.article-grid,
-  article.col-screen {
-    max-width: 1200px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+  article.article-grid {
+    grid-template-columns:
+      [screen-start] 1fr
+      [page-start] 2.5rem
+      [body-outset-start body-start gutter-left-start]
+      minmax(10ch, 20ch) [body-inset-start middle-start]
+      minmax(10ch, 20ch) [gutter-left-end]
+      minmax(10ch, 20ch) minmax(10ch, 20ch)
+      [gutter-right-start] minmax(10ch, 20ch)
+      [middle-end body-inset-end]
+      minmax(10ch, 20ch) [body-end gutter-right-end body-outset-end]
+      2.5rem [page-end]
+      1fr [screen-end] !important;
   }
 }
 
-/* Small screens (768px - 1023px) - Small laptops and tablets */
-@media (min-width: 768px) and (max-width: 1023px) {
-  main.article-grid,
-  article.article-grid,
-  article.col-screen {
-    max-width: 100% !important;
-  }
-}
-
-/* Extra small screens (<768px) - Mobile */
-@media (max-width: 767px) {
-  main.article-grid,
-  article.article-grid,
-  article.col-screen {
-    max-width: 100% !important;
-  }
-}
+/* Smaller screens use default MyST grid (no override needed) */
 
 /* 1) Reduce the top navbar height (default is 4rem) */
 html {
