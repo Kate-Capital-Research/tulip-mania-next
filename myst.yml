@@ -15,6 +15,11 @@ extends:
 
 site:
   template: book-theme
+  actions:
+    - title: Dashboards
+      url: /
+    - title: Oversight
+      url: https://tulip.katecapllc.com/lotus/
   options:
     favicon: _static/new_tulip.png
     logo: _static/logo_black_over_white.png
