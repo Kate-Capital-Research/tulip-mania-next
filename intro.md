@@ -4,7 +4,7 @@ This is a collection of interactive dashboards and analyses that help understand
 
 ## About This Site
 
-**Last Updated: November 20, 2025 - Content-Only Expansion (95vw)** ✓
+**Last Updated: November 20, 2025 - calc(100vw - 28rem) No Overlap!** ✓
 
 This website is built using Jupyter Book and contains a collection of dashboards that are automatically updated daily. The content is organized into different sections, each focusing on specific aspects of market analysis and what's already reflected in current prices.
 

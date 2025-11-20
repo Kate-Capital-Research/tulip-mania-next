@@ -105,29 +105,29 @@ figure img {
    RESPONSIVE WIDTH EXPANSION FOR LARGE SCREENS
    ======================================== */
 
-/* MyST book-theme: Expand ONLY the content area, leave grid/sidebars intact.
-   Target article.col-screen which is the content column. */
+/* MyST book-theme: Expand content while accounting for sidebar space.
+   Sidebars are ~12rem each = 24rem total. Subtract from viewport width. */
 
 /* Very large screens (≥2000px) - Your 2550x1440 monitor */
 @media (min-width: 2000px) {
   article.col-screen {
-    max-width: 95vw !important;
-    width: 95vw !important;
+    max-width: calc(100vw - 28rem) !important;
+    width: calc(100vw - 28rem) !important;
   }
 }
 
 /* Large screens (1536-1999px) */
 @media (min-width: 1536px) and (max-width: 1999px) {
   article.col-screen {
-    max-width: 90vw !important;
-    width: 90vw !important;
+    max-width: calc(100vw - 30rem) !important;
+    width: calc(100vw - 30rem) !important;
   }
 }
 
 /* Medium-large screens (1280-1535px) */
 @media (min-width: 1280px) and (max-width: 1535px) {
   article.col-screen {
-    max-width: 85vw !important;
-    width: 85vw !important;
+    max-width: calc(100vw - 32rem) !important;
+    width: calc(100vw - 32rem) !important;
   }
 }
