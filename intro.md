@@ -4,7 +4,11 @@ This is a collection of interactive dashboards and analyses that help understand
 
 ## About This Site
 
+**Last Updated: November 20, 2025 - 98% Width Expansion Active** ✓
+
 This website is built using Jupyter Book and contains a collection of dashboards that are automatically updated daily. The content is organized into different sections, each focusing on specific aspects of market analysis and what's already reflected in current prices.
+
+_Responsive Design: Content window now expands to 98% width on large monitors (≥2000px) for optimal chart viewing._
 
 ## How to Use This Site
 
