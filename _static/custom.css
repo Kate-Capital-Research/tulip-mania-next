@@ -105,62 +105,29 @@ figure img {
    RESPONSIVE WIDTH EXPANSION FOR LARGE SCREENS
    ======================================== */
 
-/* MyST book-theme uses CSS Grid. Must override grid-template-columns,
-   NOT max-width (which just makes side margins consume the space). */
+/* MyST book-theme: Expand ONLY the content area, leave grid/sidebars intact.
+   Target article.col-screen which is the content column. */
 
 /* Very large screens (≥2000px) - Your 2550x1440 monitor */
 @media (min-width: 2000px) {
-  main.article-grid,
-  article.article-grid {
-    grid-template-columns:
-      [screen-start] 0.25fr
-      [page-start] 0.5rem
-      [body-outset-start body-start gutter-left-start]
-      minmax(20ch, 50ch) [body-inset-start middle-start]
-      minmax(20ch, 50ch) [gutter-left-end]
-      minmax(20ch, 50ch) minmax(20ch, 50ch)
-      [gutter-right-start] minmax(20ch, 50ch)
-      [middle-end body-inset-end]
-      minmax(20ch, 50ch) [body-end gutter-right-end body-outset-end]
-      0.5rem [page-end]
-      0.25fr [screen-end] !important;
+  article.col-screen {
+    max-width: 95vw !important;
+    width: 95vw !important;
   }
 }
 
 /* Large screens (1536-1999px) */
 @media (min-width: 1536px) and (max-width: 1999px) {
-  main.article-grid,
-  article.article-grid {
-    grid-template-columns:
-      [screen-start] 0.5fr
-      [page-start] 1rem
-      [body-outset-start body-start gutter-left-start]
-      minmax(15ch, 40ch) [body-inset-start middle-start]
-      minmax(15ch, 40ch) [gutter-left-end]
-      minmax(15ch, 40ch) minmax(15ch, 40ch)
-      [gutter-right-start] minmax(15ch, 40ch)
-      [middle-end body-inset-end]
-      minmax(15ch, 40ch) [body-end gutter-right-end body-outset-end]
-      1rem [page-end]
-      0.5fr [screen-end] !important;
+  article.col-screen {
+    max-width: 90vw !important;
+    width: 90vw !important;
   }
 }
 
 /* Medium-large screens (1280-1535px) */
 @media (min-width: 1280px) and (max-width: 1535px) {
-  main.article-grid,
-  article.article-grid {
-    grid-template-columns:
-      [screen-start] 0.75fr
-      [page-start] 1.5rem
-      [body-outset-start body-start gutter-left-start]
-      minmax(12ch, 30ch) [body-inset-start middle-start]
-      minmax(12ch, 30ch) [gutter-left-end]
-      minmax(12ch, 30ch) minmax(12ch, 30ch)
-      [gutter-right-start] minmax(12ch, 30ch)
-      [middle-end body-inset-end]
-      minmax(12ch, 30ch) [body-end gutter-right-end body-outset-end]
-      1.5rem [page-end]
-      0.75fr [screen-end] !important;
+  article.col-screen {
+    max-width: 85vw !important;
+    width: 85vw !important;
   }
 }

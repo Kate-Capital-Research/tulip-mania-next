@@ -4,7 +4,7 @@ This is a collection of interactive dashboards and analyses that help understand
 
 ## About This Site
 
-**Last Updated: November 20, 2025 - CSS Grid Override (50ch columns!)** ✓
+**Last Updated: November 20, 2025 - Content-Only Expansion (95vw)** ✓
 
 This website is built using Jupyter Book and contains a collection of dashboards that are automatically updated daily. The content is organized into different sections, each focusing on specific aspects of market analysis and what's already reflected in current prices.
 
