@@ -105,25 +105,24 @@ figure img {
    RESPONSIVE WIDTH EXPANSION FOR LARGE SCREENS
    ======================================== */
 
-/* Default: Let MyST handle the width */
-
-/* Large screens (≥1600px) - Expand the overall page container */
+/* Target the actual MyST book-theme page container */
+/* Large screens (≥1600px) - Expand the page */
 @media (min-width: 1600px) {
-  html {
-    --pst-page-width: 95%;
+  .page {
+    max-width: 95% !important;
   }
 }
 
 /* Very large screens (≥2000px) - Your 2550x1440 monitor */
 @media (min-width: 2000px) {
-  html {
-    --pst-page-width: 98%;
+  .page {
+    max-width: 98% !important;
   }
 }
 
 /* Ultra-wide (≥2400px) - Maximum expansion */
 @media (min-width: 2400px) {
-  html {
-    --pst-page-width: 99%;
+  .page {
+    max-width: 99% !important;
   }
 }
