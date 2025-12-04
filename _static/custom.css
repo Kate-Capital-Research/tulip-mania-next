@@ -131,3 +131,1212 @@ figure img {
     width: calc(100vw - 32rem) !important;
   }
 }
+
+/* ========================================
+   NAVIGATION & HEADER STYLING
+   Kate Capital Custom Theme
+   ======================================== */
+
+/* -----------------------------------------
+   1. TOP NAVIGATION BAR
+   Classes: .myst-top-nav, .myst-top-nav-bar
+   ----------------------------------------- */
+
+/* Top nav background and shadow */
+.myst-top-nav {
+  /* Uncomment to change nav bar background */
+  /* background-color: rgba(255, 255, 255, 0.9) !important; */
+  /* dark mode: background-color: rgba(28, 25, 23, 0.9) !important; */
+}
+
+/* -----------------------------------------
+   2. NAVIGATION MENU ITEMS
+   Classes: .myst-top-nav-item
+   ----------------------------------------- */
+
+/* Center the navigation items */
+.myst-top-nav-bar {
+  justify-content: center !important;
+}
+
+/* Nav items container - center it */
+.myst-top-nav-bar > .flex-grow {
+  flex-grow: 0 !important;
+  justify-content: center !important;
+}
+
+/* Individual nav items - base styling */
+.myst-top-nav-item a,
+.myst-top-nav-dropdown button {
+  position: relative;
+  padding: 0.5rem 1rem !important;
+  margin: 0 0.5rem !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Underline effect on hover (animated from center) */
+.myst-top-nav-item a::after,
+.myst-top-nav-dropdown button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #d4a574; /* Pale gold/tan - CHANGE THIS COLOR */
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.myst-top-nav-item a:hover::after,
+.myst-top-nav-dropdown button:hover::after {
+  width: 80%;
+}
+
+/* Active/selected nav item styling */
+.myst-top-nav-item a[aria-current="page"],
+.myst-top-nav-item a.active {
+  font-weight: 600 !important;
+  border-bottom: 2px solid #d4a574 !important; /* Pale gold underline */
+}
+
+/* Remove the default border-b from MyST */
+.myst-top-nav-item a.border-b {
+  border-bottom: 2px solid #d4a574 !important;
+}
+
+/* -----------------------------------------
+   3. HOVER COLORS (PALE BLUE → PALE YELLOW)
+   Change from default blue to yellow/gold
+   ----------------------------------------- */
+
+/* TOC & Sidebar hover: pale yellow instead of blue */
+.myst-toc-item:hover,
+.myst-primary-sidebar-item:hover,
+.myst-primary-sidebar-item-short:hover,
+.myst-primary-sidebar-item-link:hover,
+.myst-toc-heading:hover {
+  background-color: rgba(250, 240, 190, 0.4) !important; /* Pale yellow */
+}
+
+/* Dark mode hover color */
+html[data-theme="dark"] .myst-toc-item:hover,
+html[data-theme="dark"] .myst-primary-sidebar-item:hover,
+html[data-theme="dark"] .myst-primary-sidebar-item-short:hover,
+html[data-theme="dark"] .myst-primary-sidebar-item-link:hover,
+html[data-theme="dark"] .myst-toc-heading:hover {
+  background-color: rgba(212, 165, 116, 0.25) !important; /* Muted gold for dark mode */
+}
+
+/* Active/selected TOC item: pale yellow instead of blue */
+.myst-toc-item-exact,
+.myst-toc-item.bg-blue-300\/30 {
+  background-color: rgba(250, 240, 190, 0.5) !important; /* Pale yellow */
+}
+
+html[data-theme="dark"] .myst-toc-item-exact,
+html[data-theme="dark"] .myst-toc-item.bg-blue-300\/30 {
+  background-color: rgba(212, 165, 116, 0.35) !important;
+}
+
+/* Dropdown menu hover */
+.myst-top-nav-dropdown-item:hover {
+  background-color: rgba(250, 240, 190, 0.6) !important;
+}
+
+/* -----------------------------------------
+   4. TOC EXPAND/COLLAPSE TRIANGLES (Chevrons)
+   The arrows that open/close sections
+   ----------------------------------------- */
+
+/* Base chevron styling */
+.myst-toc-item button svg,
+.myst-primary-sidebar-item button svg,
+.myst-primary-sidebar-item-child svg {
+  color: #8b7355 !important; /* Warm brown - CHANGE THIS COLOR */
+  transition: all 0.3s ease !important;
+}
+
+/* Chevron hover effect */
+.myst-toc-item button:hover svg,
+.myst-primary-sidebar-item button:hover svg,
+.myst-primary-sidebar-item-child:hover svg {
+  color: #d4a574 !important; /* Lighter gold on hover */
+  transform: scale(1.1);
+}
+
+/* Chevron when section is open (rotated) */
+.myst-toc-item button[data-state="open"] svg,
+.myst-primary-sidebar-item-child[data-state="open"] svg,
+button[data-state="open"] svg.transition-transform {
+  color: #d4a574 !important;
+}
+
+/* Alternative: Use CSS to replace chevrons with different symbols */
+/* Uncomment below to use plus/minus instead of arrows */
+/*
+.myst-toc-item button svg,
+.myst-primary-sidebar-item-child svg {
+  display: none !important;
+}
+.myst-toc-item button::before {
+  content: '▸';
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+.myst-toc-item button[data-state="open"]::before {
+  content: '▾';
+}
+*/
+
+/* -----------------------------------------
+   5. THEME TOGGLE BUTTON (Light/Dark Mode)
+   Classes: .myst-theme-button
+   Icons: .myst-theme-moon-icon, .myst-theme-sun-icon
+   ----------------------------------------- */
+
+/* Theme button container */
+.myst-theme-button {
+  border-color: #8b7355 !important; /* Warm brown border */
+  transition: all 0.3s ease !important;
+}
+
+.myst-theme-button:hover {
+  background-color: rgba(250, 240, 190, 0.5) !important; /* Pale yellow on hover */
+  border-color: #d4a574 !important;
+  transform: scale(1.05);
+}
+
+/* Sun icon (shown in light mode) */
+.myst-theme-sun-icon {
+  color: #d4a574 !important; /* Gold sun */
+}
+
+/* Moon icon (shown in dark mode) */
+.myst-theme-moon-icon {
+  color: #faf0be !important; /* Pale yellow moon */
+}
+
+/* -----------------------------------------
+   6. MENU HAMBURGER BUTTON (Mobile)
+   Class: .myst-top-nav-menu-button
+   ----------------------------------------- */
+
+.myst-top-nav-menu-button:hover {
+  color: #d4a574 !important;
+}
+
+/* -----------------------------------------
+   7. DROPDOWN MENU STYLING
+   Classes: .myst-top-nav-dropdown-items
+   ----------------------------------------- */
+
+.myst-top-nav-dropdown-items {
+  border: 1px solid rgba(139, 115, 85, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Dropdown chevron icon */
+.myst-top-nav-dropdown button svg {
+  color: #8b7355 !important;
+}
+
+.myst-top-nav-dropdown button:hover svg {
+  color: #d4a574 !important;
+}
+
+/* ========================================
+   ICON REFERENCE GUIDE
+   ========================================
+
+   The MyST book-theme uses Heroicons (https://heroicons.com/)
+   Here's a map of icons you might want to customize:
+
+   ICON                     | CLASS/SELECTOR                          | PURPOSE
+   -------------------------|-----------------------------------------|------------------
+   Sun (outline)            | .myst-theme-sun-icon                    | Light mode toggle
+   Moon (solid)             | .myst-theme-moon-icon                   | Dark mode toggle
+   ChevronRight             | .myst-toc-item button svg               | TOC expand arrow
+   ChevronDown              | .myst-top-nav-dropdown button svg       | Dropdown arrow
+   Bars3 (MenuIcon)         | .myst-top-nav-menu-button svg           | Mobile hamburger
+   ArrowTopRightOnSquare    | External link indicator                 | External links
+   MagnifyingGlass          | Search icon                             | Search button
+
+   To replace icons with custom content, use CSS ::before/::after pseudo-elements:
+
+   Example - Replace sun icon with emoji:
+   .myst-theme-sun-icon {
+     visibility: hidden;
+     position: relative;
+   }
+   .myst-theme-sun-icon::before {
+     content: '☀️';
+     visibility: visible;
+     position: absolute;
+     left: 50%;
+     top: 50%;
+     transform: translate(-50%, -50%);
+   }
+
+   ======================================== */
+
+/* ========================================
+   QUICK COLOR PALETTE REFERENCE
+   ========================================
+
+   Current theme uses these colors (edit as needed):
+
+   --kate-gold:        #d4a574  (Primary accent - warm gold)
+   --kate-gold-light:  #faf0be  (Pale yellow/cream)
+   --kate-brown:       #8b7355  (Warm brown for icons)
+   --kate-gold-hover:  rgba(250, 240, 190, 0.4)  (Hover background)
+   --kate-gold-active: rgba(250, 240, 190, 0.5)  (Active background)
+
+   Dark mode variants:
+   --kate-gold-dark-hover:  rgba(212, 165, 116, 0.25)
+   --kate-gold-dark-active: rgba(212, 165, 116, 0.35)
+
+   ======================================== */
+
+
+/* ========================================
+   8. TYPOGRAPHY & FONTS
+   ======================================== */
+
+/* -----------------------------------------
+   Font Families
+   ----------------------------------------- */
+
+/* Main body text font */
+body,
+article,
+.content {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  /* ORIGINAL: font-family: ui-sans-serif, system-ui, sans-serif; */
+}
+
+/* Headings font */
+h1, h2, h3, h4, h5, h6,
+.myst-toc-item,
+.myst-top-nav-item {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  /* ORIGINAL: font-family: ui-sans-serif, system-ui, sans-serif; */
+}
+
+/* Code/monospace font */
+code,
+pre,
+.highlight,
+.codehilite,
+kbd,
+samp {
+  font-family: "JetBrains Mono", "Fira Code", "SF Mono", Monaco, Consolas, monospace !important;
+  /* ORIGINAL: font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; */
+}
+
+/* -----------------------------------------
+   Font Sizes
+   ----------------------------------------- */
+
+/* Base body text size */
+body {
+  font-size: 0.95rem !important;
+  /* ORIGINAL: font-size: 1rem; */
+}
+
+/* Heading sizes */
+article h1 {
+  font-size: 2.1rem !important;
+  /* ORIGINAL: font-size: 2.25rem; */
+}
+
+article h2 {
+  font-size: 1.7rem !important;
+  /* ORIGINAL: font-size: 1.875rem; */
+}
+
+article h3 {
+  font-size: 1.4rem !important;
+  /* ORIGINAL: font-size: 1.5rem; */
+}
+
+article h4 {
+  font-size: 1.15rem !important;
+  /* ORIGINAL: font-size: 1.25rem; */
+}
+
+article h5 {
+  font-size: 1.05rem !important;
+  /* ORIGINAL: font-size: 1.125rem; */
+}
+
+article h6 {
+  font-size: 0.95rem !important;
+  /* ORIGINAL: font-size: 1rem; */
+}
+
+/* Sidebar/TOC font size */
+.myst-toc,
+.myst-primary-sidebar-item {
+  font-size: 0.875rem !important;
+  /* ORIGINAL: font-size: 0.875rem; */
+}
+
+/* -----------------------------------------
+   Line Height & Spacing
+   ----------------------------------------- */
+
+/* Body text line height */
+article p,
+article li {
+  line-height: 1.7 !important;
+  /* ORIGINAL: line-height: 1.75; */
+}
+
+/* Heading line heights */
+article h1,
+article h2,
+article h3 {
+  line-height: 1.25 !important;
+  /* ORIGINAL: line-height: 1.2; */
+}
+
+/* Paragraph spacing */
+article p {
+  margin-bottom: 1.1em !important;
+  /* ORIGINAL: margin-bottom: 1em; */
+}
+
+
+/* ========================================
+   9. LINK STYLING
+   ======================================== */
+
+/* -----------------------------------------
+   Link Colors
+   ----------------------------------------- */
+
+/* Normal link color */
+article a:not(.myst-toc-item):not([class*="nav"]) {
+  color: #b8860b !important;
+  /* ORIGINAL: color: #2563eb; (blue-600) */
+  text-decoration: none !important;
+  /* ORIGINAL: text-decoration: underline; */
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+/* Link hover */
+article a:not(.myst-toc-item):not([class*="nav"]):hover {
+  color: #d4a574 !important;
+  /* ORIGINAL: color: #1d4ed8; (blue-700) */
+  border-bottom-color: #d4a574 !important;
+  /* ORIGINAL: border-bottom-color: currentColor; */
+}
+
+/* Visited link */
+article a:not(.myst-toc-item):not([class*="nav"]):visited {
+  color: #8b7355 !important;
+  /* ORIGINAL: color: #7c3aed; (violet-600) */
+}
+
+/* Active/clicked link */
+article a:not(.myst-toc-item):not([class*="nav"]):active {
+  color: #a67c52 !important;
+  /* ORIGINAL: color: #1e40af; (blue-800) */
+}
+
+/* Dark mode links */
+html[data-theme="dark"] article a:not(.myst-toc-item):not([class*="nav"]) {
+  color: #e8c496 !important;
+  /* ORIGINAL: color: #60a5fa; (blue-400) */
+}
+
+html[data-theme="dark"] article a:not(.myst-toc-item):not([class*="nav"]):hover {
+  color: #faf0be !important;
+  /* ORIGINAL: color: #93c5fd; (blue-300) */
+}
+
+html[data-theme="dark"] article a:not(.myst-toc-item):not([class*="nav"]):visited {
+  color: #c9a86c !important;
+  /* ORIGINAL: color: #a78bfa; (violet-400) */
+}
+
+
+/* ========================================
+   10. CODE BLOCKS & SYNTAX HIGHLIGHTING
+   ======================================== */
+
+/* -----------------------------------------
+   Inline Code
+   ----------------------------------------- */
+
+/* Inline code styling */
+:not(pre) > code {
+  background-color: rgba(212, 165, 116, 0.15) !important;
+  /* ORIGINAL: background-color: rgba(0, 0, 0, 0.05); */
+  color: #8b4513 !important;
+  /* ORIGINAL: color: #d63384; (pink) */
+  padding: 0.15em 0.4em !important;
+  /* ORIGINAL: padding: 0.2em 0.4em; */
+  border-radius: 4px !important;
+  /* ORIGINAL: border-radius: 6px; */
+  font-size: 0.9em !important;
+  /* ORIGINAL: font-size: 0.875em; */
+}
+
+/* Dark mode inline code */
+html[data-theme="dark"] :not(pre) > code {
+  background-color: rgba(212, 165, 116, 0.2) !important;
+  /* ORIGINAL: background-color: rgba(255, 255, 255, 0.1); */
+  color: #e8c496 !important;
+  /* ORIGINAL: color: #f472b6; (pink-400) */
+}
+
+/* -----------------------------------------
+   Code Blocks
+   ----------------------------------------- */
+
+/* Code block container */
+pre,
+.highlight,
+.codehilite {
+  background-color: #faf8f5 !important;
+  /* ORIGINAL: background-color: #1e1e1e; (dark) or #f8f8f8; (light) */
+  border: 1px solid rgba(139, 115, 85, 0.2) !important;
+  /* ORIGINAL: border: 1px solid #e5e7eb; */
+  border-radius: 6px !important;
+  /* ORIGINAL: border-radius: 8px; */
+  padding: 1em !important;
+  /* ORIGINAL: padding: 1rem; */
+  overflow-x: auto;
+  font-size: 0.875rem !important;
+  /* ORIGINAL: font-size: 0.875rem; */
+  line-height: 1.6 !important;
+  /* ORIGINAL: line-height: 1.7; */
+}
+
+/* Dark mode code blocks */
+html[data-theme="dark"] pre,
+html[data-theme="dark"] .highlight,
+html[data-theme="dark"] .codehilite {
+  background-color: #1a1612 !important;
+  /* ORIGINAL: background-color: #1e1e1e; */
+  border-color: rgba(212, 165, 116, 0.3) !important;
+  /* ORIGINAL: border-color: #374151; */
+}
+
+/* Code block text */
+pre code {
+  color: #3d3328 !important;
+  /* ORIGINAL: color: #1f2937; */
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+html[data-theme="dark"] pre code {
+  color: #e8dfd4 !important;
+  /* ORIGINAL: color: #f3f4f6; */
+}
+
+/* -----------------------------------------
+   Syntax Highlighting Colors
+   (Modify these to change code coloring)
+   ----------------------------------------- */
+
+/* Comments */
+.highlight .c,
+.highlight .c1,
+.highlight .cm,
+.highlight .cs {
+  color: #8b7355 !important;
+  /* ORIGINAL: color: #6a737d; */
+  font-style: italic;
+}
+
+/* Keywords (if, else, return, etc.) */
+.highlight .k,
+.highlight .kd,
+.highlight .kn,
+.highlight .kp,
+.highlight .kr,
+.highlight .kt {
+  color: #a0522d !important;
+  /* ORIGINAL: color: #d73a49; (red) */
+  font-weight: 500;
+}
+
+/* Strings */
+.highlight .s,
+.highlight .s1,
+.highlight .s2,
+.highlight .sb,
+.highlight .sc,
+.highlight .sd,
+.highlight .se,
+.highlight .sh,
+.highlight .si,
+.highlight .sx,
+.highlight .sr,
+.highlight .ss {
+  color: #6b8e23 !important;
+  /* ORIGINAL: color: #22863a; (green) */
+}
+
+/* Numbers */
+.highlight .m,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .mo {
+  color: #b8860b !important;
+  /* ORIGINAL: color: #005cc5; (blue) */
+}
+
+/* Functions */
+.highlight .nf,
+.highlight .fm {
+  color: #8b4513 !important;
+  /* ORIGINAL: color: #6f42c1; (purple) */
+}
+
+/* Classes/Types */
+.highlight .nc,
+.highlight .nn,
+.highlight .ne {
+  color: #cd853f !important;
+  /* ORIGINAL: color: #6f42c1; (purple) */
+}
+
+/* Variables */
+.highlight .n,
+.highlight .na,
+.highlight .nb,
+.highlight .nv,
+.highlight .vc,
+.highlight .vg,
+.highlight .vi {
+  color: #5d4e37 !important;
+  /* ORIGINAL: color: #24292e; */
+}
+
+/* Operators */
+.highlight .o,
+.highlight .ow {
+  color: #8b7355 !important;
+  /* ORIGINAL: color: #d73a49; */
+}
+
+
+/* ========================================
+   11. ADMONITIONS (Note/Warning/Tip Boxes)
+   ======================================== */
+
+/* -----------------------------------------
+   Base Admonition Styling
+   ----------------------------------------- */
+
+/* All admonitions base */
+.admonition,
+[class*="admonition-"],
+.note,
+.warning,
+.tip,
+.important,
+.caution,
+.danger,
+.seealso,
+.hint {
+  border-radius: 6px !important;
+  /* ORIGINAL: border-radius: 4px; */
+  padding: 1em 1.2em !important;
+  /* ORIGINAL: padding: 1rem; */
+  margin: 1.2em 0 !important;
+  /* ORIGINAL: margin: 1rem 0; */
+  border-left-width: 4px !important;
+  /* ORIGINAL: border-left-width: 4px; */
+  border-left-style: solid !important;
+}
+
+/* Admonition title */
+.admonition-title,
+.admonition > p:first-child,
+.note > p:first-child strong,
+.warning > p:first-child strong {
+  font-weight: 600 !important;
+  /* ORIGINAL: font-weight: 700; */
+  margin-bottom: 0.4em !important;
+  /* ORIGINAL: margin-bottom: 0.5em; */
+}
+
+/* -----------------------------------------
+   Note (Info) Box
+   ----------------------------------------- */
+
+.note,
+.admonition.note,
+[class*="admonition-note"] {
+  background-color: rgba(212, 165, 116, 0.1) !important;
+  /* ORIGINAL: background-color: rgba(59, 130, 246, 0.1); (blue) */
+  border-left-color: #d4a574 !important;
+  /* ORIGINAL: border-left-color: #3b82f6; (blue) */
+}
+
+.note .admonition-title,
+.admonition.note .admonition-title {
+  color: #8b7355 !important;
+  /* ORIGINAL: color: #1d4ed8; (blue) */
+}
+
+/* -----------------------------------------
+   Warning Box
+   ----------------------------------------- */
+
+.warning,
+.admonition.warning,
+[class*="admonition-warning"] {
+  background-color: rgba(245, 158, 11, 0.12) !important;
+  /* ORIGINAL: background-color: rgba(245, 158, 11, 0.1); (amber) */
+  border-left-color: #f59e0b !important;
+  /* ORIGINAL: border-left-color: #f59e0b; (amber) */
+}
+
+.warning .admonition-title,
+.admonition.warning .admonition-title {
+  color: #b45309 !important;
+  /* ORIGINAL: color: #b45309; (amber-700) */
+}
+
+/* -----------------------------------------
+   Tip/Hint Box
+   ----------------------------------------- */
+
+.tip,
+.hint,
+.admonition.tip,
+.admonition.hint,
+[class*="admonition-tip"],
+[class*="admonition-hint"] {
+  background-color: rgba(107, 142, 35, 0.12) !important;
+  /* ORIGINAL: background-color: rgba(16, 185, 129, 0.1); (green) */
+  border-left-color: #6b8e23 !important;
+  /* ORIGINAL: border-left-color: #10b981; (green) */
+}
+
+.tip .admonition-title,
+.hint .admonition-title,
+.admonition.tip .admonition-title,
+.admonition.hint .admonition-title {
+  color: #556b2f !important;
+  /* ORIGINAL: color: #059669; (green-600) */
+}
+
+/* -----------------------------------------
+   Important Box
+   ----------------------------------------- */
+
+.important,
+.admonition.important,
+[class*="admonition-important"] {
+  background-color: rgba(139, 69, 19, 0.1) !important;
+  /* ORIGINAL: background-color: rgba(139, 92, 246, 0.1); (purple) */
+  border-left-color: #8b4513 !important;
+  /* ORIGINAL: border-left-color: #8b5cf6; (purple) */
+}
+
+.important .admonition-title,
+.admonition.important .admonition-title {
+  color: #5d3a1a !important;
+  /* ORIGINAL: color: #7c3aed; (purple-600) */
+}
+
+/* -----------------------------------------
+   Danger/Caution Box
+   ----------------------------------------- */
+
+.danger,
+.caution,
+.admonition.danger,
+.admonition.caution,
+[class*="admonition-danger"],
+[class*="admonition-caution"] {
+  background-color: rgba(220, 38, 38, 0.1) !important;
+  /* ORIGINAL: background-color: rgba(239, 68, 68, 0.1); (red) */
+  border-left-color: #dc2626 !important;
+  /* ORIGINAL: border-left-color: #ef4444; (red) */
+}
+
+.danger .admonition-title,
+.caution .admonition-title,
+.admonition.danger .admonition-title,
+.admonition.caution .admonition-title {
+  color: #b91c1c !important;
+  /* ORIGINAL: color: #dc2626; (red-600) */
+}
+
+/* -----------------------------------------
+   Dark Mode Admonitions
+   ----------------------------------------- */
+
+html[data-theme="dark"] .note,
+html[data-theme="dark"] .admonition.note {
+  background-color: rgba(212, 165, 116, 0.15) !important;
+  /* ORIGINAL: background-color: rgba(59, 130, 246, 0.2); */
+}
+
+html[data-theme="dark"] .warning,
+html[data-theme="dark"] .admonition.warning {
+  background-color: rgba(245, 158, 11, 0.18) !important;
+  /* ORIGINAL: background-color: rgba(245, 158, 11, 0.2); */
+}
+
+html[data-theme="dark"] .tip,
+html[data-theme="dark"] .hint,
+html[data-theme="dark"] .admonition.tip,
+html[data-theme="dark"] .admonition.hint {
+  background-color: rgba(107, 142, 35, 0.18) !important;
+  /* ORIGINAL: background-color: rgba(16, 185, 129, 0.2); */
+}
+
+
+/* ========================================
+   12. TABLES
+   ======================================== */
+
+/* -----------------------------------------
+   Table Base Styling
+   ----------------------------------------- */
+
+article table {
+  width: 100%;
+  border-collapse: collapse !important;
+  /* ORIGINAL: border-collapse: collapse; */
+  margin: 1.2em 0 !important;
+  /* ORIGINAL: margin: 1rem 0; */
+  font-size: 0.9rem !important;
+  /* ORIGINAL: font-size: 0.875rem; */
+}
+
+/* -----------------------------------------
+   Table Header
+   ----------------------------------------- */
+
+article table thead {
+  background-color: rgba(212, 165, 116, 0.15) !important;
+  /* ORIGINAL: background-color: #f3f4f6; (gray-100) */
+}
+
+article table th {
+  padding: 0.8em 1em !important;
+  /* ORIGINAL: padding: 0.75rem 1rem; */
+  text-align: left;
+  font-weight: 600 !important;
+  /* ORIGINAL: font-weight: 600; */
+  color: #5d4e37 !important;
+  /* ORIGINAL: color: #374151; (gray-700) */
+  border-bottom: 2px solid rgba(139, 115, 85, 0.3) !important;
+  /* ORIGINAL: border-bottom: 2px solid #e5e7eb; */
+}
+
+/* Dark mode header */
+html[data-theme="dark"] article table thead {
+  background-color: rgba(212, 165, 116, 0.12) !important;
+  /* ORIGINAL: background-color: #374151; */
+}
+
+html[data-theme="dark"] article table th {
+  color: #e8dfd4 !important;
+  /* ORIGINAL: color: #f3f4f6; */
+  border-bottom-color: rgba(212, 165, 116, 0.4) !important;
+  /* ORIGINAL: border-bottom-color: #4b5563; */
+}
+
+/* -----------------------------------------
+   Table Cells
+   ----------------------------------------- */
+
+article table td {
+  padding: 0.7em 1em !important;
+  /* ORIGINAL: padding: 0.75rem 1rem; */
+  border-bottom: 1px solid rgba(139, 115, 85, 0.15) !important;
+  /* ORIGINAL: border-bottom: 1px solid #e5e7eb; */
+}
+
+html[data-theme="dark"] article table td {
+  border-bottom-color: rgba(212, 165, 116, 0.2) !important;
+  /* ORIGINAL: border-bottom-color: #374151; */
+}
+
+/* -----------------------------------------
+   Table Row Striping (Zebra)
+   ----------------------------------------- */
+
+article table tbody tr:nth-child(even) {
+  background-color: rgba(212, 165, 116, 0.06) !important;
+  /* ORIGINAL: background-color: #f9fafb; (gray-50) */
+}
+
+html[data-theme="dark"] article table tbody tr:nth-child(even) {
+  background-color: rgba(212, 165, 116, 0.08) !important;
+  /* ORIGINAL: background-color: rgba(255, 255, 255, 0.02); */
+}
+
+/* -----------------------------------------
+   Table Row Hover
+   ----------------------------------------- */
+
+article table tbody tr:hover {
+  background-color: rgba(250, 240, 190, 0.3) !important;
+  /* ORIGINAL: background-color: #f3f4f6; */
+}
+
+html[data-theme="dark"] article table tbody tr:hover {
+  background-color: rgba(212, 165, 116, 0.15) !important;
+  /* ORIGINAL: background-color: rgba(255, 255, 255, 0.05); */
+}
+
+
+/* ========================================
+   13. SCROLLBARS
+   ======================================== */
+
+/* -----------------------------------------
+   Custom Scrollbar (WebKit browsers)
+   ----------------------------------------- */
+
+/* Scrollbar track (background) */
+::-webkit-scrollbar {
+  width: 10px;
+  /* ORIGINAL: width: 8px; */
+  height: 10px;
+  /* ORIGINAL: height: 8px; */
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(212, 165, 116, 0.1);
+  /* ORIGINAL: background: #f1f1f1; */
+  border-radius: 5px;
+  /* ORIGINAL: border-radius: 4px; */
+}
+
+/* Scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 115, 85, 0.4);
+  /* ORIGINAL: background: #c1c1c1; */
+  border-radius: 5px;
+  /* ORIGINAL: border-radius: 4px; */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 115, 85, 0.6);
+  /* ORIGINAL: background: #a1a1a1; */
+}
+
+/* Dark mode scrollbar */
+html[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: rgba(212, 165, 116, 0.08);
+  /* ORIGINAL: background: #1f2937; */
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: rgba(212, 165, 116, 0.35);
+  /* ORIGINAL: background: #4b5563; */
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 165, 116, 0.5);
+  /* ORIGINAL: background: #6b7280; */
+}
+
+/* -----------------------------------------
+   Firefox Scrollbar
+   ----------------------------------------- */
+
+* {
+  scrollbar-width: thin;
+  /* ORIGINAL: scrollbar-width: auto; */
+  scrollbar-color: rgba(139, 115, 85, 0.4) rgba(212, 165, 116, 0.1);
+  /* ORIGINAL: scrollbar-color: #c1c1c1 #f1f1f1; */
+}
+
+html[data-theme="dark"] * {
+  scrollbar-color: rgba(212, 165, 116, 0.35) rgba(212, 165, 116, 0.08);
+  /* ORIGINAL: scrollbar-color: #4b5563 #1f2937; */
+}
+
+
+/* ========================================
+   14. TEXT SELECTION HIGHLIGHT
+   ======================================== */
+
+::selection {
+  background-color: rgba(212, 165, 116, 0.35) !important;
+  /* ORIGINAL: background-color: rgba(59, 130, 246, 0.3); (blue) */
+  color: #1a1612 !important;
+  /* ORIGINAL: color: inherit; */
+}
+
+::-moz-selection {
+  background-color: rgba(212, 165, 116, 0.35) !important;
+  /* ORIGINAL: background-color: rgba(59, 130, 246, 0.3); */
+  color: #1a1612 !important;
+  /* ORIGINAL: color: inherit; */
+}
+
+html[data-theme="dark"] ::selection {
+  background-color: rgba(212, 165, 116, 0.4) !important;
+  /* ORIGINAL: background-color: rgba(96, 165, 250, 0.4); */
+  color: #faf8f5 !important;
+  /* ORIGINAL: color: inherit; */
+}
+
+html[data-theme="dark"] ::-moz-selection {
+  background-color: rgba(212, 165, 116, 0.4) !important;
+  /* ORIGINAL: background-color: rgba(96, 165, 250, 0.4); */
+  color: #faf8f5 !important;
+  /* ORIGINAL: color: inherit; */
+}
+
+
+/* ========================================
+   15. FOOTER
+   ======================================== */
+
+/* -----------------------------------------
+   Footer Container
+   ----------------------------------------- */
+
+footer,
+.footer,
+[class*="footer"] {
+  background-color: #faf8f5 !important;
+  /* ORIGINAL: background-color: #f9fafb; (gray-50) */
+  border-top: 1px solid rgba(139, 115, 85, 0.2) !important;
+  /* ORIGINAL: border-top: 1px solid #e5e7eb; */
+  padding: 1.5rem 0 !important;
+  /* ORIGINAL: padding: 2rem 0; */
+}
+
+html[data-theme="dark"] footer,
+html[data-theme="dark"] .footer,
+html[data-theme="dark"] [class*="footer"] {
+  background-color: #1a1612 !important;
+  /* ORIGINAL: background-color: #111827; */
+  border-top-color: rgba(212, 165, 116, 0.25) !important;
+  /* ORIGINAL: border-top-color: #374151; */
+}
+
+/* -----------------------------------------
+   Footer Text
+   ----------------------------------------- */
+
+footer,
+footer p,
+footer span,
+.footer,
+.footer p {
+  color: #5d4e37 !important;
+  /* ORIGINAL: color: #6b7280; (gray-500) */
+  font-size: 0.85rem !important;
+  /* ORIGINAL: font-size: 0.875rem; */
+}
+
+html[data-theme="dark"] footer,
+html[data-theme="dark"] footer p,
+html[data-theme="dark"] footer span,
+html[data-theme="dark"] .footer,
+html[data-theme="dark"] .footer p {
+  color: #c9b89a !important;
+  /* ORIGINAL: color: #9ca3af; (gray-400) */
+}
+
+/* -----------------------------------------
+   Footer Links
+   ----------------------------------------- */
+
+footer a,
+.footer a {
+  color: #8b7355 !important;
+  /* ORIGINAL: color: #6b7280; */
+  text-decoration: none !important;
+  transition: color 0.2s ease;
+}
+
+footer a:hover,
+.footer a:hover {
+  color: #d4a574 !important;
+  /* ORIGINAL: color: #374151; */
+  text-decoration: underline !important;
+}
+
+html[data-theme="dark"] footer a,
+html[data-theme="dark"] .footer a {
+  color: #d4a574 !important;
+  /* ORIGINAL: color: #9ca3af; */
+}
+
+html[data-theme="dark"] footer a:hover,
+html[data-theme="dark"] .footer a:hover {
+  color: #faf0be !important;
+  /* ORIGINAL: color: #e5e7eb; */
+}
+
+
+/* ========================================
+   16. BORDERS & SHADOWS
+   ======================================== */
+
+/* -----------------------------------------
+   Default Border Color
+   ----------------------------------------- */
+
+/* Apply to common bordered elements */
+.card,
+.panel,
+.box,
+blockquote {
+  border-color: rgba(139, 115, 85, 0.25) !important;
+  /* ORIGINAL: border-color: #e5e7eb; */
+}
+
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .panel,
+html[data-theme="dark"] .box,
+html[data-theme="dark"] blockquote {
+  border-color: rgba(212, 165, 116, 0.3) !important;
+  /* ORIGINAL: border-color: #374151; */
+}
+
+/* -----------------------------------------
+   Blockquote Styling
+   ----------------------------------------- */
+
+blockquote {
+  border-left: 4px solid #d4a574 !important;
+  /* ORIGINAL: border-left: 4px solid #e5e7eb; */
+  background-color: rgba(212, 165, 116, 0.08) !important;
+  /* ORIGINAL: background-color: #f9fafb; */
+  padding: 0.8em 1.2em !important;
+  /* ORIGINAL: padding: 1rem; */
+  margin: 1.2em 0 !important;
+  /* ORIGINAL: margin: 1rem 0; */
+  font-style: italic;
+  color: #5d4e37 !important;
+  /* ORIGINAL: color: #4b5563; */
+}
+
+html[data-theme="dark"] blockquote {
+  background-color: rgba(212, 165, 116, 0.1) !important;
+  /* ORIGINAL: background-color: rgba(255, 255, 255, 0.02); */
+  color: #c9b89a !important;
+  /* ORIGINAL: color: #9ca3af; */
+}
+
+/* -----------------------------------------
+   Box Shadows
+   ----------------------------------------- */
+
+/* Cards and elevated elements */
+.card,
+.elevated,
+.shadow {
+  box-shadow: 0 2px 8px rgba(139, 115, 85, 0.12) !important;
+  /* ORIGINAL: box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); */
+}
+
+.card:hover,
+.elevated:hover {
+  box-shadow: 0 4px 16px rgba(139, 115, 85, 0.18) !important;
+  /* ORIGINAL: box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+}
+
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .elevated,
+html[data-theme="dark"] .shadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  /* ORIGINAL: box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); */
+}
+
+
+/* ========================================
+   17. FOCUS STATES (Accessibility)
+   ======================================== */
+
+/* Focus outline for interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #d4a574 !important;
+  /* ORIGINAL: outline: 2px solid #3b82f6; (blue) */
+  outline-offset: 2px !important;
+  /* ORIGINAL: outline-offset: 2px; */
+}
+
+html[data-theme="dark"] a:focus-visible,
+html[data-theme="dark"] button:focus-visible,
+html[data-theme="dark"] input:focus-visible,
+html[data-theme="dark"] select:focus-visible,
+html[data-theme="dark"] textarea:focus-visible,
+html[data-theme="dark"] [tabindex]:focus-visible {
+  outline-color: #e8c496 !important;
+  /* ORIGINAL: outline-color: #60a5fa; (blue-400) */
+}
+
+
+/* ========================================
+   18. IMAGES & FIGURES
+   ======================================== */
+
+/* -----------------------------------------
+   Image Styling
+   ----------------------------------------- */
+
+article img:not([class*="logo"]) {
+  border-radius: 6px !important;
+  /* ORIGINAL: border-radius: 8px; */
+  box-shadow: 0 2px 8px rgba(139, 115, 85, 0.15) !important;
+  /* ORIGINAL: box-shadow: none; */
+}
+
+/* -----------------------------------------
+   Figure Captions
+   ----------------------------------------- */
+
+figcaption,
+.caption {
+  color: #8b7355 !important;
+  /* ORIGINAL: color: #6b7280; */
+  font-size: 0.875rem !important;
+  /* ORIGINAL: font-size: 0.875rem; */
+  font-style: italic;
+  margin-top: 0.6em !important;
+  /* ORIGINAL: margin-top: 0.5rem; */
+  text-align: center;
+}
+
+html[data-theme="dark"] figcaption,
+html[data-theme="dark"] .caption {
+  color: #c9b89a !important;
+  /* ORIGINAL: color: #9ca3af; */
+}
+
+
+/* ========================================
+   END OF CUSTOMIZATION SECTIONS
+   ========================================
+
+   To customize further:
+   1. Find the section you want to modify
+   2. Change the value
+   3. Reference the ORIGINAL comment for defaults
+   4. Test in browser with dev tools first
+
+   Color Conversion Reference:
+   - Gold theme: #d4a574, #8b7355, #faf0be
+   - To convert: search "hex to rgb converter"
+
+   ======================================== */
